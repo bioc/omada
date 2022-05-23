@@ -2,7 +2,7 @@
 % Please edit documentation in R/feature_selection.R
 \name{featureSelection}
 \alias{featureSelection}
-\title{Feature Selection}
+\title{Predictor variable subsampling sets and bootstrapping stability set selection}
 \usage{
 featureSelection(data, min.k = 2, max.k = 4, step = 5)
 }
@@ -16,11 +16,11 @@ featureSelection(data, min.k = 2, max.k = 4, step = 5)
 \item{step}{The number for additional features each feature set will contain}
 }
 \value{
-A dataframe of average bootstrap stabilities, where rows represent
-feature sets and columns number of clusters and the corresponding plot
+A list containing the dataframe of average bootstrap stabilities, where rows represent
+feature sets and columns number of clusters and the corresponding line plot
 }
 \description{
-Feature Selection
+Predictor variable subsampling sets and bootstrapping stability set selection
 }
 \examples{
 featureSelection(toy_genes, min.k = 3, max.k = 9, step = 3)

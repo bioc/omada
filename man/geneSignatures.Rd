@@ -2,7 +2,7 @@
 % Please edit documentation in R/gene_singatures.R
 \name{geneSignatures}
 \alias{geneSignatures}
-\title{Generating the gene signature per cluster}
+\title{Generating the feature/gene signature per cluster}
 \usage{
 geneSignatures(data, memberships)
 }
@@ -15,13 +15,12 @@ column "membership" containing the cluster membership of each sample. The
 memberships must be strings}
 }
 \value{
-A l
+A list of LASSO (regression analysis) coefficients of each gene and
+a plot of the highest 30% of coefficients per cluster.
 }
 \description{
-Generating the gene signature per cluster
+Generating the feature/gene signature per cluster
 }
 \examples{
-geneSignatures(toy_genes, toy_gene_memberships)
-geneSignatures(toy_genes, toy_gene_memberships)
 geneSignatures(toy_genes, toy_gene_memberships)
 }

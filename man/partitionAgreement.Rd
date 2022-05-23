@@ -2,7 +2,7 @@
 % Please edit documentation in R/partition_agreement.R
 \name{partitionAgreement}
 \alias{partitionAgreement}
-\title{Partition Agreement}
+\title{Partition Agreement calculation between two clustering runs}
 \usage{
 partitionAgreement(
   data,

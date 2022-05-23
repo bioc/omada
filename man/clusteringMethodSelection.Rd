@@ -2,7 +2,7 @@
 % Please edit documentation in R/clustering_method_selection.R
 \name{clusteringMethodSelection}
 \alias{clusteringMethodSelection}
-\title{Method Selection}
+\title{Method Selection through intra-method Consensus Partition Consistency}
 \usage{
 clusteringMethodSelection(data, method.upper.k = 5, number.of.comparisons = 3)
 }
@@ -18,7 +18,7 @@ A list containing a dataframe of partition agreement scores for a set of random 
 clustering runs across different methods and the corresponding plot
 }
 \description{
-Method Selection
+Method Selection through intra-method Consensus Partition Consistency
 }
 \examples{
 clusteringMethodSelection(toy_genes, method.upper.k = 3, number.of.comparisons = 4)
