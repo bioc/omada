@@ -1,0 +1,161 @@
+---
+title: "Omada, An unsupervised machine learning toolkit for automated sample clustering of gene expression profiles"
+shorttitle: "Machine learning tools for automated transcriptome clustering analysis"
+
+author: 
+- name: "Sokratis Kariotis"
+  affiliation: 
+  - "University of Sheffield, Agency for Science, Technology and Research (A*STAR)"
+package: "omada"
+abstract: >
+  Estimating the numerous parameters of a clustering model in biological partitioning projects requires deep understanding of machine learning and extensive experimentation. Furthermore, it is often difficult to associate metadata to the generated subgroups through literature or prior knowledge and relevant tools are nonexistent. To address this we have developed a suite of tools to automate these processes to make robust unsupervised clustering of transcriptomic data more accessible. The efficiency of the pipeline was tested with two datasets of different types. A RNA sequencing dataset generated five distinct clustering subgroups and subsequently associated separate clinical based profiles. Our pipeline also utilised a microRNA dataset to partition patients to distinct subgroups to be used for further identification of important differentiated microRNAs.
+
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{my-vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+### Loading the library
+Loading the library to access the functions and the two toy datasets: gene expressions and cluster memberships.
+
+```{r setup, warning = FALSE, message = FALSE}
+library(omada)
+```
+
+### Investigating feasibility of a dataset based on its dimensions (sample and feature sizes)
+To investigate the clustering feasibility of a dataset this package provides two simulating functions of stability assessment that simulate a dataset of specific dimensions and calculate the dataset's stabilities for a range of clusters. `feasibilityAnalysis()` generates an idependent dataset for specific number of classes, samples and features while `feasibilityAnalysisDataBased()` accepts an existing dataset extracting statistics(means and standard deviations) for a specific number of clusters. Note that these estimations only serve as an indication of the datasets fitness for the dowstream analysis and not as the actual measure of quality as they do not account for the actual signal in the data but only the relation between the number of samples, features and clusters.
+
+```{r feasibility_analysis, warning = FALSE, message = FALSE}
+# Selecting dimensions and number of clusters
+new.dataset.analysis <- feasibilityAnalysis(classes = 4, samples = 50, features = 15)
+
+# Basing the simulation on an existing dataset and selecting the number of clusters
+existing.dataset.analysis <- feasibilityAnalysisDataBased(data = toy_genes, classes = 3)
+
+# Extract results
+stabilities.per.cluster <- existing.dataset.analysis[[1]]
+maximum.stability <- existing.dataset.analysis[[2]]
+average.stability <- existing.dataset.analysis[[3]]
+simulated.dataset <- existing.dataset.analysis[[4]]
+```
+
+### Automated clustering analysis: Omada
+Using `omada()` along with a gene expression dataframe and an upper k (number of clusters to be considered) we can run the whole analysis toolkit to automate clustering decision making and produce the estimated optimal clusters.
+
+```{r omada, warning = FALSE, message = FALSE, cache = TRUE, fig.width = 7, fig.asp = .42, fig.align='center'}
+# Running the whole cascade of tools inputting an expression dataset 
+# and the upper k (number of clusters) to be investigated
+omada.analysis <- omada(toy_genes, method.upper.k = 4)
+
+# Extract results
+partition.agreement.scores <- omada.analysis[[1]]
+partition.agreement.plot <- omada.analysis[[2]]
+feature.selection.scores <- omada.analysis[[3]]
+feature.selection.plot <- omada.analysis[[4]]
+cluster.voting.scores <- omada.analysis[[5]]
+cluster.voting.cluster.memberships <- omada.analysis[[6]]
+cluster.voting.metric.votes <- omada.analysis[[7]]
+cluster.voting.k.votes <- omada.analysis[[8]]
+cluster.voting.plot <- omada.analysis[[9]]
+sample.memberships <- omada.analysis[[10]]
+signature.feature.coefs <- omada.analysis[[11]]
+signature.feature.plot <- omada.analysis[[12]]
+
+# Plot results
+partition.agreement.plot
+feature.selection.plot
+cluster.voting.plot 
+signature.feature.plot
+```
+
+### Selecting the most appropriate clustering approach based on a dataset
+To select the most appropriate clustering technique for our dataset we compare the internal partition agreement of three different approaches, namely spectral, k-means and hierarchical clustering using the `clusteringMethodSelection()` function. We define the upper k to be considered as well as the number of internal comparisons per approach. Increased number of comparisons introduces more robustness and highest run times.
+
+```{r method-selection, warning = FALSE, message = FALSE, cache = TRUE, fig.width = 7, fig.asp = .42, fig.align='center'}
+# Selecting the upper k limit and number of comparisons
+method.results <- clusteringMethodSelection(toy_genes, method.upper.k = 3, number.of.comparisons = 2)
+
+# Extract results
+partition.agreement.scores <- method.results[[1]]
+partition.agreement.plot <- method.results[[2]]
+
+#Plot results
+partition.agreement.plot
+```
+
+This suite also provides the function to individually calculate the partition agreement between two specific clustering approaches and parameter sets by utilizing function `partitionAgreement()` which requires the selection of the 2 algorithms, measures and number of clusters.
+
+```{r partition_agreement, warning = FALSE, message = FALSE}
+# Selecting algorithms, measures and number of clusters
+agreement.results <- partitionAgreement(toy_genes, algorithm.1 = "spectral", measure.1 = "rbfdot", 
+                                        algorithm.2 = "kmeans",measure.2 = "Lloyd", 
+                                        number.of.clusters = 3)
+
+# Plot results
+agreement.results
+```
+
+### Selecting the most appropriate features
+To select the features that provide the most stable clusters the function `featureSelection()` requires the minimum and maximum number of clusters(k) and the feature step that dictates the rate of each feature set's increase. It is advised to use the  algorithm the previous tools provide.
+
+```{r feature-selection, warning = FALSE, message = FALSE, cache = TRUE, fig.width = 7, fig.asp = .42, fig.align='center'}
+# Selecting minimum and maximum number of clusters and feature step
+feature.selection.results <-  featureSelection(toy_genes, min.k = 3, max.k = 6, step = 3)
+
+# Extract results
+feature.selection.scores <- feature.selection.results[[1]]
+feature.selection.plot <- feature.selection.results[[2]]
+
+# Plot results
+feature.selection.plot
+```
+
+### Estimating the most appropriate number of clusters
+To estimate the most appropriate number of clusters based on an ensemble of internal metrics function `clusterVoting()` accepts the minimum and maximum number of clusters to be considered as well as the algorithm of choice ("sc" for spectral, "km" for kmeans and "hr" for hierachical clustering). It is advised to use the feature set and algorithm the previous tools provide.
+
+```{r cluster_voting, warning = FALSE, message = FALSE, cache = TRUE, fig.width = 7, fig.asp = .42, fig.align='center'}
+# Selecting minimum and maximum number of clusters and algorithm to be used
+cluster.voting.results <- clusterVoting(toy_genes, 4,8,"sc")
+
+# Extract results
+cluster.voting.scores <- cluster.voting.results[[1]]
+cluster.voting.cluster.memberships <- cluster.voting.results[[2]]
+cluster.voting.metric.votes <- cluster.voting.results[[3]]
+cluster.voting.k.votes <- cluster.voting.results[[4]]
+cluster.voting.plot <- cluster.voting.results[[5]]
+
+# Plot results
+cluster.voting.plot
+```
+
+### Running the optimal clustering
+Previous steps have provided every clustering parameter needed to go through with the partitioning utilising `optimalClustering()`. This tool is using the dataset with the most stable feature set, number of clusters(k) and appropriate algorithm. This tool additionally runs through the possible algorithm parameters to retain the one with the highest stability.
+
+```{r optimal_clustering, warning = FALSE, message = FALSE}
+# Running the clustering with specific number of clusters(k) and algorithm 
+sample.memberships <- optimalClustering(toy_genes, 4, "spectral")
+
+# Plot results
+memberships <- sample.memberships[[1]]
+optimal.stability <- sample.memberships[[2]]
+optimal.parameter <- sample.memberships[[3]]
+```
+
+### Meta analysis of feature/gene signatures
+The first meta analysis of the discovered clusters includes the generation of feature (or gene) signatures associated to each cluster. To acquire the signatures function `geneSignatures()` provides the LASSO (regression analysis) coefficients of each gene as well as a plot of the highest 30% of coefficients per cluster. The previously generated cluster memberships and initial dataset are required.
+
+```{r gene-signatures, warning = FALSE, message = FALSE, cache = TRUE, fig.width = 7, fig.asp = .42, fig.align='center'}
+
+# Generating signatures based on the  initial dataset and cluster memberships
+signature.results <- geneSignatures(toy_genes, toy_gene_memberships)
+
+#Extract results
+signature.dataframe <- signature.results[[1]]
+signature.plot <- signature.results[[2]]
+
+# Plot results
+signature.plot
+```
+
