@@ -1,11 +1,15 @@
-#' Simulating dataset and calculate stabilities over different number of clusters
+#' Simulating dataset and calculate stabilities over different number of
+#' clusters
 #'
-#' @param classes The number of classes of samples to be reflected in the simulated dataset
+#' @param classes The number of classes of samples to be reflected in the
+#' simulated dataset
 #' @param samples The number of samples in the simulated dataset
 #' @param features The number of features in the simulated dataset
 #'
-#' @return A list containing the average stabilities for all number of clusters(k),
-#' the average (over all k) and maximum stabilities observed and the generated dataset
+#' @return A list containing the average stabilities for all number of
+#' clusters(k),
+#' the average (over all k) and maximum stabilities observed and the generated
+#' dataset
 #'
 #' @export
 #'
@@ -27,7 +31,7 @@ feasibilityAnalysis <- function(classes = 3, samples = 320, features = 400) {
   for(i in 1:features) {
     temp <- rnorm(n = samples, mean = c(class.means), sd = class.sd)
     dataset[ , ncol(dataset) + 1] <- temp # Append temp column
-    colnames(dataset)[ncol(dataset)] <- paste0("feature_", feature.index)  # Rename column name
+    colnames(dataset)[ncol(dataset)] <- paste0("feature_", feature.index)
     feature.index <- feature.index + 1
   }
 

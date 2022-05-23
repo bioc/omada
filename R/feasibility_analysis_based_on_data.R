@@ -1,10 +1,15 @@
-#' Simulating dataset based on existing dataset's dimensions, mean and standard deviation
+#' Simulating dataset based on existing dataset's dimensions, mean and standard
+#' deviation
 #'
-#' @param data The dataset to base the simulation extracting the number of samples, features and numeric
-#' @param classes The number of classes of samples to be reflected in the simulated dataset
+#' @param data The dataset to base the simulation extracting the number of
+#' samples, features and numeric
+#' @param classes The number of classes of samples to be reflected in the
+#' simulated dataset
 #'
-#' @return A list containing the average stabilities for all number of clusters(k),
-#' the average (over all k) and maximum stabilities observed and the generated dataset
+#' @return A list containing the average stabilities for all number of
+#' clusters(k),
+#' the average (over all k) and maximum stabilities observed and the generated
+#' dataset
 #'
 #' @export
 #'
@@ -35,7 +40,7 @@ feasibilityAnalysisDataBased <- function(data, classes = 3) {
   for(i in 1:features) {
     temp <- rnorm(n = samples, mean = c(class.means), sd = class.sd)
     dataset[ , ncol(dataset) + 1] <- temp # Append temp column
-    colnames(dataset)[ncol(dataset)] <- paste0("feature_", feature.index)  # Rename column name
+    colnames(dataset)[ncol(dataset)] <- paste0("feature_", feature.index)
     feature.index <- feature.index + 1
   }
   cl.index <- cl.index + 1

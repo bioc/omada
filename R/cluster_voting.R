@@ -1,4 +1,5 @@
-#' Estimating number of clusters through internal exhaustive ensemble majority voting
+#' Estimating number of clusters through internal exhaustive ensemble majority
+#' voting
 #'
 #' @param data A dataframe, where columns are features and rows are data points
 #' @param min.k Minimum number of clusters for which we calculate stabilities
@@ -6,9 +7,9 @@
 #' @param algorithm The clustering algorithm to use for the multiple clustering
 #' runs to be measured
 #'
-#' @return A list the contains: a matrix with metric scores for every k and internal index,
-#' cluster memberships for every k, a dataframe with the k votes for every index,
-#'  k vote frequencies and the frequency barplot of the k votes
+#' @return A list the contains: a matrix with metric scores for every k and
+#' internal index, cluster memberships for every k, a dataframe with the k votes
+#'  for every index, k vote frequencies and the frequency barplot of the k votes
 #'
 #' @export
 #'
@@ -55,9 +56,10 @@ clusterVoting <- function(data ,min.k ,max.k, algorithm) {
       cls <- cl$cluster
     }
 
-    criteria <- intCriteria(data,cls,c("calinski_harabasz","dunn","pbm","tau","gamma",
-                                                "c_index","davies_bouldin","mcclain_rao","sd_dis",
-                                                "ray_turi","g_plus","silhouette","s_dbw"))
+    criteria <- intCriteria(data,cls,c("calinski_harabasz","dunn","pbm","tau",
+                                       "gamma", "c_index","davies_bouldin",
+                                       "mcclain_rao","sd_dis", "ray_turi",
+                                       "g_plus","silhouette","s_dbw"))
 
     con <- clValid::connectivity(clusters = cls, Data = data)
     comp <- compactness(data, cls)
@@ -70,7 +72,8 @@ clusterVoting <- function(data ,min.k ,max.k, algorithm) {
 
   scores[is.na(scores)] = 0
 
-  votes <- data.frame(result=integer(), metric=character(), stringsAsFactors=FALSE)
+  votes <- data.frame(result=integer(), metric=character(),
+                      stringsAsFactors=FALSE)
   b.counter <- 1
 
   # Determine which k has the best score
@@ -91,7 +94,8 @@ clusterVoting <- function(data ,min.k ,max.k, algorithm) {
   }
 
   # Remove metric votes that voted for every k
-  votes <- votes[votes$metric %in% names(which(table(votes$metric) != dim(scores)[2])), ]
+  votes <- votes[votes$metric %in%
+                   names(which(table(votes$metric) != dim(scores)[2])), ]
 
   # converting into familiar kX form
   votes[, 1] <- paste0("k", (as.numeric(votes[, 1]) + 1))
@@ -100,7 +104,6 @@ clusterVoting <- function(data ,min.k ,max.k, algorithm) {
   colnames(ensemble.results) <- c("k", "Frequency")
   ensemble.results$Frequency <- as.numeric(ensemble.results$Frequency)
 
-  # ensemble.results$k <- factor(ensemble.results$k,levels =  paste0("k",min.k:max.k))
   ensemble.plot <- ggplot(ensemble.results, aes(k, Frequency, fill = k)) +
     geom_col() +
     scale_fill_brewer(palette="Dark2")

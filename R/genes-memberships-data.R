@@ -1,6 +1,7 @@
 #' Cluster memberships for toy gene data for package examples
 #'
-#' Column "id" represents genes and column "memberships" represents their respective clusters. Rows are samples
+#' Column "id" represents genes and column "memberships" represents
+#' their respective clusters. Rows are samples
 #'
 #' @docType data
 #'

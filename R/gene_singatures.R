@@ -2,9 +2,9 @@
 #'
 #' @param data A dataframe, where columns are features and rows are data points.
 #' The firs column must be named "id" and containing the sample ids
-#' @param memberships A dataframe with column "id" (same samples ids as above) and
-#' column "membership" containing the cluster membership of each sample. The
-#' memberships must be strings
+#' @param memberships A dataframe with column "id" (same samples ids as above)
+#' and column "membership" containing the cluster membership of each sample.
+#' The memberships must be strings
 #'
 #' @return A list of LASSO (regression analysis) coefficients of each gene and
 #' a plot of the highest 30% of coefficients per cluster.
@@ -42,7 +42,8 @@ geneSignatures <- function(data, memberships) {
     optimal_lambda <- cv_model$lambda.min
 
     # Running optimal lasso model
-    optimal_lasso <- glmnet(data.matrix, data$membership, family = "multinomial",
+    optimal_lasso <- glmnet(data.matrix, data$membership,
+                            family = "multinomial",
                             alpha = 1, lambda = optimal_lambda)
 
     # Extract coefficients for minimized test MSE)
@@ -64,9 +65,11 @@ geneSignatures <- function(data, memberships) {
 
     # Calculating mean coefficient per feature across clusters
 
-    coef.dataset <- filter(coef.dataset, rowSums(abs(across(where(is.numeric))))!=0)
+    coef.dataset <- filter(coef.dataset,
+                           rowSums(abs(across(where(is.numeric))))!=0)
     coef.dataset$means <- rowMeans(coef.dataset)
-    coef.dataset <- coef.dataset[with(coef.dataset, order(abs(means), decreasing = TRUE)),]
+    coef.dataset <- coef.dataset[with(coef.dataset, order(abs(means),
+                                                          decreasing = TRUE)),]
     coef.dataset$features <- rownames(coef.dataset)
     coef.dataset$means <- NULL #addition
 
@@ -74,10 +77,12 @@ geneSignatures <- function(data, memberships) {
     coef.dataset <- coef.dataset[1:round(dim(coef.dataset)[1]*0.3, digits = 0),]
     coef.data.melt <- melt(coef.dataset)
 
-    coef.30perc <- ggplot(data = coef.data.melt, aes(x = features, y = value, fill = variable)) +
+    coef.30perc <- ggplot(data = coef.data.melt, aes(x = features, y = value,
+                                                     fill = variable)) +
         geom_bar(stat = "identity") +
         theme(axis.title.x=element_blank(),
-              axis.text.x = element_text(angle=45, vjust = 1, hjust = 1, size = 12),
+              axis.text.x = element_text(angle=45, vjust = 1, hjust = 1,
+                                         size = 12),
               plot.title = element_text(hjust = 0.5),
               axis.title.y = element_text(size = 15),
               legend.position = "none") +

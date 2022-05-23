@@ -47,12 +47,12 @@
 #' @export
 
 partitionAgreement <- function(data, algorithm.1 = "hierarchical",
-                                measure.1 = "canberra",
-                                hier.agglo.algorithm.1 = "average",
-                                algorithm.2 = "hierarchical",
-                                measure.2 = "manhattan",
-                                hier.agglo.algorithm.2 = "average",
-                                number.of.clusters = 5) {
+                               measure.1 = "canberra",
+                               hier.agglo.algorithm.1 = "average",
+                               algorithm.2 = "hierarchical",
+                               measure.2 = "manhattan",
+                               hier.agglo.algorithm.2 = "average",
+                               number.of.clusters = 5) {
 
   # Convert to matrix
   dataset <- data.matrix(data, rownames.force = NA)

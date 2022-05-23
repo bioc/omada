@@ -1,20 +1,24 @@
 #' Method Selection through intra-method Consensus Partition Consistency
 #'
 #' @param data A dataframe, where columns are features and rows are data points
-#' @param method.upper.k The number of clusters, k, up to which the average agreements will be calculated
+#' @param method.upper.k The number of clusters, k, up to which the average
+#' agreements will be calculated
 #' @param number.of.comparisons The number of comparisons to average over per k
 #'
-#' @return A list containing a dataframe of partition agreement scores for a set of random parameter
+#' @return A list containing a dataframe of partition agreement scores for a
+#' set of random parameter
 #' clustering runs across different methods and the corresponding plot
 #'
 #' @export
 #'
 #' @examples
-#' clusteringMethodSelection(toy_genes, method.upper.k = 3, number.of.comparisons = 4)
-#' clusteringMethodSelection(toy_genes, method.upper.k = 2, number.of.comparisons = 2)
+#' clusteringMethodSelection(toy_genes, method.upper.k = 3,
+#' number.of.comparisons = 4)
+#' clusteringMethodSelection(toy_genes, method.upper.k = 2,
+#' number.of.comparisons = 2)
 
 clusteringMethodSelection <- function(data, method.upper.k = 5,
-                             number.of.comparisons = 3) {
+                                      number.of.comparisons = 3) {
 
   print("Comparing methods...")
 
@@ -31,7 +35,6 @@ clusteringMethodSelection <- function(data, method.upper.k = 5,
 
   spectral.kernels <- c("rbfdot", "polydot", "vanilladot", "tanhdot",
                         "laplacedot", "anovadot", "splinedot")
-
 
   hier.cobs <- expand.grid(hierarchical.measures, hierarchical.algs)
   hier.cobs <- hier.cobs[sample(nrow(hier.cobs), number.of.pairs),]
@@ -67,12 +70,12 @@ clusteringMethodSelection <- function(data, method.upper.k = 5,
     p2h.2 <- as.character(p2h[[2]])
 
     cur.h <- partitionAgreement(data, algorithm.1 = "hierarchical",
-                                 measure.1 = p1h.1,
-                                 hier.agglo.algorithm.1 = p1h.2,
-                                 algorithm.2 = "hierarchical",
-                                 measure.2 = p2h.1,
-                                 hier.agglo.algorithm.2 = p2h.2,
-                                 method.upper.k)
+                                measure.1 = p1h.1,
+                                hier.agglo.algorithm.1 = p1h.2,
+                                algorithm.2 = "hierarchical",
+                                measure.2 = p2h.1,
+                                hier.agglo.algorithm.2 = p2h.2,
+                                method.upper.k)
 
     df.h[nrow(df.h) + 1, ] <- cur.h
   }
@@ -81,10 +84,10 @@ clusteringMethodSelection <- function(data, method.upper.k = 5,
 
     p1s <- spectral.cobs[i,]
     cur.s <- partitionAgreement(data, algorithm.1 = "spectral",
-                                 measure.1 = as.character(p1s[[1]]),
-                                 algorithm.2 = "spectral",
-                                 measure.2 = as.character(p1s[[2]]),
-                                 method.upper.k)
+                                measure.1 = as.character(p1s[[1]]),
+                                algorithm.2 = "spectral",
+                                measure.2 = as.character(p1s[[2]]),
+                                method.upper.k)
 
     df.s[nrow(df.s) + 1, ] <- cur.s
   }
@@ -93,10 +96,10 @@ clusteringMethodSelection <- function(data, method.upper.k = 5,
 
     p1k <- kmeans.cobs[i,]
     cur.k <- partitionAgreement(data, algorithm.1 = "kmeans",
-                                     measure.1 = as.character(p1k[[1]]),
-                                     algorithm.2 = "kmeans",
-                                     measure.2 = as.character(p1k[[2]]),
-                                     method.upper.k)
+                                measure.1 = as.character(p1k[[1]]),
+                                algorithm.2 = "kmeans",
+                                measure.2 = as.character(p1k[[2]]),
+                                method.upper.k)
 
     df.k[nrow(df.k) + 1, ] <- cur.k
   }
@@ -111,7 +114,6 @@ clusteringMethodSelection <- function(data, method.upper.k = 5,
   s.mean <- mean(df.final$spectral)
   k.mean <- mean(df.final$kmeans)
 
-
   df.plot <- melt(df.final, id=c("clusters"))
   colnames(df.plot) <- c("clusters", "methods", "value")
 
@@ -120,9 +122,15 @@ clusteringMethodSelection <- function(data, method.upper.k = 5,
     geom_hline(aes(yintercept=h.mean), linetype="dashed") +
     geom_hline(aes(yintercept=s.mean), linetype="dashed") +
     geom_hline(aes(yintercept=k.mean), linetype="dashed") +
-    geom_text(aes(0,h.mean,label = paste0("h.mean: ", format(round(h.mean, 2), nsmall = 2)), vjust = 1, hjust = -0.25)) +
-    geom_text(aes(0,s.mean,label = paste0("s.mean: ", format(round(s.mean, 2), nsmall = 2)), vjust = 1, hjust = -0.25)) +
-    geom_text(aes(0,k.mean,label = paste0("k.mean: ", format(round(k.mean, 2), nsmall = 2)), vjust = 1, hjust = -0.25)) +
+    geom_text(aes(0,h.mean,label = paste0("h.mean: ", format(round(h.mean, 2),
+                                                             nsmall = 2)),
+                  vjust = 1, hjust = -0.25)) +
+    geom_text(aes(0,s.mean,label = paste0("s.mean: ", format(round(s.mean, 2),
+                                                             nsmall = 2)),
+                  vjust = 1, hjust = -0.25)) +
+    geom_text(aes(0,k.mean,label = paste0("k.mean: ", format(round(k.mean, 2),
+                                                             nsmall = 2)),
+                  vjust = 1, hjust = -0.25)) +
     ylab("Partition Agreement (ARI)")
 
   return(list(df.final,agreements.plot))

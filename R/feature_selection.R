@@ -5,8 +5,9 @@
 #' @param max.k Maximum number of clusters for which we calculate stabilities
 #' @param step The number for additional features each feature set will contain
 #'
-#' @return A list containing the dataframe of average bootstrap stabilities, where rows represent
-#' feature sets and columns number of clusters and the corresponding line plot
+#' @return A list containing the dataframe of average bootstrap stabilities,
+#' where rows represent feature sets and columns number of clusters and the
+#' corresponding line plot
 #'
 #' @export
 #'
@@ -64,10 +65,13 @@ featureSelection <- function(data, min.k = 2, max.k = 4, step = 5) {
         average.k.stabilities, mean(boot.vector[[i]]))
     }
 
-    averages.of.all.k[[length(averages.of.all.k)+1]] <- list(average.k.stabilities)
+    averages.of.all.k[[length(averages.of.all.k)+1]] <-
+      list(average.k.stabilities)
   }
 
-  all.feature.k.stabilities <- as.data.frame(matrix(unlist(averages.of.all.k), nrow=length(unlist(averages.of.all.k[1]))))
+  all.feature.k.stabilities <-
+    as.data.frame(matrix(unlist(averages.of.all.k),
+                         nrow=length(unlist(averages.of.all.k[1]))))
   colnames(all.feature.k.stabilities) <- featureset.list
   all.feature.k.stabilities <- t(all.feature.k.stabilities)
   colnames(all.feature.k.stabilities) <- paste0("k", min.k:max.k)
@@ -77,18 +81,22 @@ featureSelection <- function(data, min.k = 2, max.k = 4, step = 5) {
   all.feature.k.stabilities$means <- rowMeans(all.feature.k.stabilities)
   all.feature.k.stabilities$featureSet <- rownames(all.feature.k.stabilities)
 
-  all.feature.k.stabilities$featureSet <- as.integer(as.character(all.feature.k.stabilities$featureSet))
+  all.feature.k.stabilities$featureSet <-
+    as.integer(as.character(all.feature.k.stabilities$featureSet))
 
-  stabilities.plot <- ggplot(data = all.feature.k.stabilities, aes(x=featureSet, y=means)) +
-                        geom_line(color='firebrick',group = 1, size = 0.5) +
-                        geom_point(color='firebrick', group = 1) +
-                        ylab("Bootstrap stability") +
-                        xlab("Most variable sets") +
-                        theme(axis.text=element_text(size=12),
-                              axis.title=element_text(size=12,face="bold"),
-                              axis.text.x = element_text(angle = 90, vjust = 0.5),
-                              plot.title = element_text(hjust = 0.5, size = 14,face="bold"),legend.position="none") +
-                        theme_bw()
+  stabilities.plot <- ggplot(data = all.feature.k.stabilities,
+                             aes(x=featureSet, y=means)) +
+    geom_line(color='firebrick',group = 1, size = 0.5) +
+    geom_point(color='firebrick', group = 1) +
+    ylab("Bootstrap stability") +
+    xlab("Most variable sets") +
+    theme(axis.text=element_text(size=12),
+          axis.title=element_text(size=12,face="bold"),
+          axis.text.x=element_text(angle = 90,vjust = 0.5),
+          plot.title = element_text(hjust = 0.5, size = 14,
+                                    face="bold"),
+          legend.position="none") +
+    theme_bw()
 
   return(list(all.feature.k.stabilities, stabilities.plot))
 }
