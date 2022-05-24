@@ -10,9 +10,9 @@ geneSignatures(data, memberships)
 \item{data}{A dataframe, where columns are features and rows are data points.
 The firs column must be named "id" and containing the sample ids}
 
-\item{memberships}{A dataframe with column "id" (same samples ids as above) and
-column "membership" containing the cluster membership of each sample. The
-memberships must be strings}
+\item{memberships}{A dataframe with column "id" (same samples ids as above)
+and column "membership" containing the cluster membership of each sample.
+The memberships must be strings}
 }
 \value{
 A list of LASSO (regression analysis) coefficients of each gene and

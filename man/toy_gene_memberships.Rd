@@ -14,7 +14,8 @@ nope
 data(toy_gene_memberships)
 }
 \description{
-Column "id" represents genes and column "memberships" represents their respective clusters. Rows are samples
+Column "id" represents genes and column "memberships" represents
+their respective clusters. Rows are samples
 }
 \examples{
 data(toy_gene_memberships)

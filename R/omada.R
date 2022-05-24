@@ -5,7 +5,12 @@
 #' @param method.upper.k The upper limit of clusters, k, to be considered.
 #' Must be more than 2
 #'
-#' @return A list with all the tool results.
+#' @return A object of class "clusterAnalysis" containing
+#' partition.agreement.scores,partition.agreement.plot,feature.selection.scores,
+#' feature.selection.plot,cluster.voting.scores,
+#' cluster.voting.cluster.memberships,cluster.voting.metric.votes,
+#' cluster.voting.k.votes,cluster.voting.plot,sample.memberships,
+#' signature.feature.coefs and signature.feature.plot
 #'
 #' @export
 #'
@@ -70,7 +75,20 @@ omada <- function(data, method.upper.k = 5) {
     gs.matrix <- gene.signature.results[[1]]
     gs.plot <- gene.signature.results[[2]]
 
-    return(list(pa.df, pa.plot, fs.df, fs.plot, cv.scores,
-                cv.clusters, cv.votes, cv.ensemble, cv.plot, memberships,
-                gs.matrix, gs.plot))
+    analysis <- list(partition.agreement.scores=pa.df,
+                       partition.agreement.plot=pa.plot,
+                       feature.selection.scores=fs.df,
+                       feature.selection.plot=fs.plot,
+                       cluster.voting.scores=cv.scores,
+                       cluster.voting.memberships=cv.clusters,
+                       cluster.voting.metric.votes=cv.votes,
+                       cluster.voting.k.votes=cv.ensemble,
+                       cluster.voting.plot=cv.plot,
+                       sample.memberships=memberships,
+                       signature.feature.coefs=gs.matrix,
+                       signature.feature.plot=gs.plot)
+
+    class(analysis) <- "clusterAnalysis"
+
+    return(analysis)
 }

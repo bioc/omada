@@ -2,7 +2,8 @@
 % Please edit documentation in R/cluster_voting.R
 \name{clusterVoting}
 \alias{clusterVoting}
-\title{Estimating number of clusters through internal exhaustive ensemble majority voting}
+\title{Estimating number of clusters through internal exhaustive ensemble majority
+voting}
 \usage{
 clusterVoting(data, min.k, max.k, algorithm)
 }
@@ -17,12 +18,13 @@ clusterVoting(data, min.k, max.k, algorithm)
 runs to be measured}
 }
 \value{
-A list the contains: a matrix with metric scores for every k and internal index,
-cluster memberships for every k, a dataframe with the k votes for every index,
- k vote frequencies and the frequency barplot of the k votes
+A list the contains: a matrix with metric scores for every k and
+internal index, cluster memberships for every k, a dataframe with the k votes
+ for every index, k vote frequencies and the frequency barplot of the k votes
 }
 \description{
-Estimating number of clusters through internal exhaustive ensemble majority voting
+Estimating number of clusters through internal exhaustive ensemble majority
+voting
 }
 \examples{
 clusterVoting(toy_genes, 4,14,"sc")

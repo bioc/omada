@@ -2,21 +2,27 @@
 % Please edit documentation in R/feasibility_analysis_based_on_data.R
 \name{feasibilityAnalysisDataBased}
 \alias{feasibilityAnalysisDataBased}
-\title{Simulating dataset based on existing dataset's dimensions, mean and standard deviation}
+\title{Simulating dataset based on existing dataset's dimensions, mean and standard
+deviation}
 \usage{
 feasibilityAnalysisDataBased(data, classes = 3)
 }
 \arguments{
-\item{data}{The dataset to base the simulation extracting the number of samples, features and numeric}
+\item{data}{The dataset to base the simulation extracting the number of
+samples, features and numeric}
 
-\item{classes}{The number of classes of samples to be reflected in the simulated dataset}
+\item{classes}{The number of classes of samples to be reflected in the
+simulated dataset}
 }
 \value{
-A list containing the average stabilities for all number of clusters(k),
-the average (over all k) and maximum stabilities observed and the generated dataset
+A list containing the average stabilities for all number of
+clusters(k),
+the average (over all k) and maximum stabilities observed and the generated
+dataset
 }
 \description{
-Simulating dataset based on existing dataset's dimensions, mean and standard deviation
+Simulating dataset based on existing dataset's dimensions, mean and standard
+deviation
 }
 \examples{
 feasibilityAnalysisDataBased(data = toy_genes, classes = 3)

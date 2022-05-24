@@ -49,25 +49,11 @@ Using `omada()` along with a gene expression dataframe and an upper k (number of
 # and the upper k (number of clusters) to be investigated
 omada.analysis <- omada(toy_genes, method.upper.k = 4)
 
-# Extract results
-partition.agreement.scores <- omada.analysis[[1]]
-partition.agreement.plot <- omada.analysis[[2]]
-feature.selection.scores <- omada.analysis[[3]]
-feature.selection.plot <- omada.analysis[[4]]
-cluster.voting.scores <- omada.analysis[[5]]
-cluster.voting.cluster.memberships <- omada.analysis[[6]]
-cluster.voting.metric.votes <- omada.analysis[[7]]
-cluster.voting.k.votes <- omada.analysis[[8]]
-cluster.voting.plot <- omada.analysis[[9]]
-sample.memberships <- omada.analysis[[10]]
-signature.feature.coefs <- omada.analysis[[11]]
-signature.feature.plot <- omada.analysis[[12]]
-
 # Plot results
-partition.agreement.plot
-feature.selection.plot
-cluster.voting.plot 
-signature.feature.plot
+omada.analysis$partition.agreement.plot
+omada.analysis$feature.selection.plot
+omada.analysis$cluster.voting.plot
+omada.analysis$signature.feature.plot
 ```
 
 ### Selecting the most appropriate clustering approach based on a dataset

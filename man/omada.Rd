@@ -2,20 +2,28 @@
 % Please edit documentation in R/omada.R
 \name{omada}
 \alias{omada}
-\title{A wrapper function that utilizes all tools to produce the optimal sample memberships}
+\title{A wrapper function that utilizes all tools to produce the optimal
+sample memberships}
 \usage{
 omada(data, method.upper.k = 5)
 }
 \arguments{
 \item{data}{A dataframe, where columns are features and rows are data points}
 
-\item{method.upper.k}{The upper limit of clusters, k, to be considered. Must be more than 2}
+\item{method.upper.k}{The upper limit of clusters, k, to be considered.
+Must be more than 2}
 }
 \value{
-A list with all the tool results.
+A object of class "clusterAnalysis" containing
+partition.agreement.scores,partition.agreement.plot,feature.selection.scores,
+feature.selection.plot,cluster.voting.scores,
+cluster.voting.cluster.memberships,cluster.voting.metric.votes,
+cluster.voting.k.votes,cluster.voting.plot,sample.memberships,
+signature.feature.coefs and signature.feature.plot
 }
 \description{
-A wrapper function that utilizes all tools to produce the optimal sample memberships
+A wrapper function that utilizes all tools to produce the optimal
+sample memberships
 }
 \examples{
 omada(toy_genes, method.upper.k = 5)

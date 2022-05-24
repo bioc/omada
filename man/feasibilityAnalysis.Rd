@@ -2,23 +2,28 @@
 % Please edit documentation in R/feasibilty_analysis.R
 \name{feasibilityAnalysis}
 \alias{feasibilityAnalysis}
-\title{Simulating dataset and calculate stabilities over different number of clusters}
+\title{Simulating dataset and calculate stabilities over different number of
+clusters}
 \usage{
 feasibilityAnalysis(classes = 3, samples = 320, features = 400)
 }
 \arguments{
-\item{classes}{The number of classes of samples to be reflected in the simulated dataset}
+\item{classes}{The number of classes of samples to be reflected in the
+simulated dataset}
 
 \item{samples}{The number of samples in the simulated dataset}
 
 \item{features}{The number of features in the simulated dataset}
 }
 \value{
-A list containing the average stabilities for all number of clusters(k),
-the average (over all k) and maximum stabilities observed and the generated dataset
+A list containing the average stabilities for all number of
+clusters(k),
+the average (over all k) and maximum stabilities observed and the generated
+dataset
 }
 \description{
-Simulating dataset and calculate stabilities over different number of clusters
+Simulating dataset and calculate stabilities over different number of
+clusters
 }
 \examples{
 feasibilityAnalysis(classes = 3, samples = 320, features = 400)
