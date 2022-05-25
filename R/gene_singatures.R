@@ -6,8 +6,9 @@
 #' and column "membership" containing the cluster membership of each sample.
 #' The memberships must be strings
 #'
-#' @return A list of LASSO (regression analysis) coefficients of each gene and
-#' a plot of the highest 30% of coefficients per cluster.
+#' @return An object of class "geneSignature" containing a list of LASSO
+#' (regression analysis) coefficients of each gene and a plot of the highest
+#' 30% of coefficients per cluster.
 #'
 #' @export
 #'
@@ -88,8 +89,41 @@ geneSignatures <- function(data, memberships) {
               legend.position = "none") +
         geom_hline(yintercept=0, linetype="dashed", color = "red") +
         labs(title = "Coefficients") +
-        # coord_cartesian(ylim=c(-0.2,0.2)) +
         facet_grid(variable~.)
 
-    return(list(coef.dataset, coef.30perc))
+    geneSignature <-
+        function(coefficient.dataset = coef.dataset,
+                 top30percent.coefficients = coef.30perc){
+
+            gs <- list(coefficient.dataset = coefficient.dataset,
+                       top30percent.coefficients = top30percent.coefficients)
+
+            ## Set the name for the class
+            class(gs) <- "geneSignature"
+
+            return(gs)
+        }
+
+    gene.signature <- geneSignature()
+
+    return(gene.signature)
+}
+
+# Getters
+#' @export
+get_coefficient_dataset <- function(object) {
+    UseMethod("get_coefficient_dataset")
+}
+#' @export
+get_coefficient_dataset.geneSignature <- function(object) {
+    object$coefficient.dataset
+}
+
+#' @export
+get_top30percent_coefficients <- function(object) {
+    UseMethod("get_top30percent_coefficients")
+}
+#' @export
+get_top30percent_coefficients.geneSignature <- function(object) {
+    object$top30percent.coefficients
 }

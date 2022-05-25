@@ -5,9 +5,10 @@
 #' @param max.k Maximum number of clusters for which we calculate stabilities
 #' @param step The number for additional features each feature set will contain
 #'
-#' @return A list containing the dataframe of average bootstrap stabilities,
-#' where rows represent feature sets and columns number of clusters and the
-#' corresponding line plot
+#' @return An object of class "featureSelection" containing the dataframe of
+#' average bootstrap stabilities, where rows represent feature sets and columns
+#' number of clusters, the corresponding line plot, the number and the names of
+#' the selected features
 #'
 #' @export
 #'
@@ -98,5 +99,67 @@ featureSelection <- function(data, min.k = 2, max.k = 4, step = 5) {
           legend.position="none") +
     theme_bw()
 
-  return(list(all.feature.k.stabilities, stabilities.plot))
+  optimal.number <-
+    all.feature.k.stabilities[
+      which.max(all.feature.k.stabilities$means),]["featureSet"][[1]]
+
+  optimal.feats <- sorted.features.variance$names[1:optimal.number]
+
+  featureSelection <-
+    function(average.feature.k.stabilities = all.feature.k.stabilities,
+             average.stabilities.plot = stabilities.plot,
+             optimal.number.of.features  = optimal.number,
+             optimal.features = optimal.feats){
+
+    fs <- list(average.feature.k.stabilities = average.feature.k.stabilities,
+               average.stabilities.plot = average.stabilities.plot,
+               optimal.number.of.features  = optimal.number.of.features,
+               optimal.features = optimal.features)
+
+    ## Set the name for the class
+    class(fs) <- "featureSelection"
+
+    return(fs)
+  }
+
+  feature.selection <- featureSelection()
+
+  return(feature.selection)
+}
+
+# Getters
+#' @export
+get_average_feature_k_stabilities <- function(object) {
+  UseMethod("get_average_feature_k_stabilities")
+}
+#' @export
+get_average_feature_k_stabilities.featureSelection <- function(object) {
+  object$average.feature.k.stabilities
+}
+
+#' @export
+plot_average_stabilities <- function(object) {
+  UseMethod("plot_average_stabilities")
+}
+#' @export
+plot_average_stabilities.featureSelection <- function(object) {
+  object$average.stabilities.plot
+}
+
+#' @export
+get_optimal_number_of_features <- function(object) {
+  UseMethod("get_optimal_number_of_features")
+}
+#' @export
+get_optimal_number_of_features.featureSelection <- function(object) {
+  object$optimal.number.of.features
+}
+
+#' @export
+get_optimal_features <- function(object) {
+  UseMethod("get_optimal_features")
+}
+#' @export
+get_optimal_features.featureSelection <- function(object) {
+  object$optimal.features
 }

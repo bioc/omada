@@ -33,8 +33,8 @@
 #' @param number.of.clusters The upper limit of clusters to form starting from 2
 #' @param algorithm.1 Second algorithm to be used (spectral/kmeans/hierarchical)
 #'
-#' @return A numeric vector of agreements(Rand Indexes) from 1 cluster (ARI = 0)
-#' up to the number of clusters requested
+#' @return An object of class "partitionAgreement" containing agreements
+#' (Rand Indexes) from 1 cluster (ARI=0) up to the number of clusters requested
 #'
 #' @examples
 #' partitionAgreement(toy_genes, algorithm.1 = "hierarchical",
@@ -133,5 +133,27 @@ partitionAgreement <- function(data, algorithm.1 = "hierarchical",
   }
 
   names(ari.vector) <- c(paste0("K_", seq(1, number.of.clusters)))
-  return(ari.vector)
+
+  partitionAgreement <- function(ari.scores=ari.vector){
+
+    pa <- list(ari.scores = ari.scores)
+
+    ## Set the name for the class
+    class(pa) <- "partitionAgreement"
+
+    return(pa)
+  }
+
+  partition.agreement <- partitionAgreement()
+
+  return(partition.agreement)
+}
+
+#' @export
+get_partition_agreement_scores <- function(object) {
+  UseMethod("get_partition_agreement_scores")
+}
+#' @export
+get_partition_agreement_scores.partitionAgreement <- function(object) {
+  object$ari.scores
 }

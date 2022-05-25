@@ -7,7 +7,7 @@
 #' @param algorithm The clustering algorithm to use for the multiple clustering
 #' runs to be measured
 #'
-#' @return A list the contains: a matrix with metric scores for every k and
+#' @return An object of class "clusterVoting" containing a matrix with metric scores for every k and
 #' internal index, cluster memberships for every k, a dataframe with the k votes
 #'  for every index, k vote frequencies and the frequency barplot of the k votes
 #'
@@ -108,5 +108,73 @@ clusterVoting <- function(data ,min.k ,max.k, algorithm) {
     geom_col() +
     scale_fill_brewer(palette="Dark2")
 
-  return(list(scores,clusters,votes,ensemble.results,ensemble.plot))
+
+
+  clusterVoting <- function(internal.metric.scores = scores,
+                            cluster.memberships.k = clusters,
+                               metric.votes.k = votes,
+                            vote.frequencies.k = ensemble.results,
+                            vote.frequencies.plot = ensemble.plot){
+
+    cv <- list(internal.metric.scores = internal.metric.scores,
+               cluster.memberships.k = cluster.memberships.k,
+               metric.votes.k = metric.votes.k,
+               vote.frequencies.k = vote.frequencies.k,
+               vote.frequencies.plot = vote.frequencies.plot)
+
+    ## Set the name for the class
+    class(cv) <- "clusterVoting"
+
+    return(cv)
+  }
+
+  cluster.voting <- clusterVoting()
+
+  return(cluster.voting)
+}
+
+# Getters
+#' @export
+get_internal_metric_scores <- function(object) {
+  UseMethod("get_internal_metric_scores")
+}
+#' @export
+get_internal_metric_scores.clusterVoting <- function(object) {
+  object$internal.metric.scores
+}
+
+#' @export
+get_cluster_memberships_k <- function(object) {
+  UseMethod("get_cluster_memberships_k")
+}
+#' @export
+get_cluster_memberships_k.clusterVoting <- function(object) {
+  object$cluster.memberships.k
+}
+
+#' @export
+get_metric_votes_k <- function(object) {
+  UseMethod("get_metric_votes_k")
+}
+#' @export
+get_metric_votes_k.clusterVoting <- function(object) {
+  object$metric.votes.k
+}
+
+#' @export
+get_vote_frequencies_k <- function(object) {
+  UseMethod("get_vote_frequencies_k")
+}
+#' @export
+get_vote_frequencies_k.clusterVoting <- function(object) {
+  object$vote.frequencies.k
+}
+
+#' @export
+plot_vote_frequencies <- function(object) {
+  UseMethod("plot_vote_frequencies")
+}
+#' @export
+plot_vote_frequencies.clusterVoting <- function(object) {
+  object$vote.frequencies.plot
 }

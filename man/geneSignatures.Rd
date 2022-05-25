@@ -15,8 +15,9 @@ and column "membership" containing the cluster membership of each sample.
 The memberships must be strings}
 }
 \value{
-A list of LASSO (regression analysis) coefficients of each gene and
-a plot of the highest 30% of coefficients per cluster.
+An object of class "geneSignature" containing a list of LASSO
+(regression analysis) coefficients of each gene and a plot of the highest
+30% of coefficients per cluster.
 }
 \description{
 Generating the feature/gene signature per cluster

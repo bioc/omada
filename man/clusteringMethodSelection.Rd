@@ -15,8 +15,8 @@ agreements will be calculated}
 \item{number.of.comparisons}{The number of comparisons to average over per k}
 }
 \value{
-A list containing a dataframe of partition agreement scores for a
-set of random parameter
+An object of class "methodSelection" containing a dataframe of
+partition agreement scores for a set of random parameters
 clustering runs across different methods and the corresponding plot
 }
 \description{

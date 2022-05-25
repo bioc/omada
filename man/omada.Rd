@@ -14,7 +14,7 @@ omada(data, method.upper.k = 5)
 Must be more than 2}
 }
 \value{
-A object of class "clusterAnalysis" containing
+An object of class "clusterAnalysis" containing
 partition.agreement.scores,partition.agreement.plot,feature.selection.scores,
 feature.selection.plot,cluster.voting.scores,
 cluster.voting.cluster.memberships,cluster.voting.metric.votes,

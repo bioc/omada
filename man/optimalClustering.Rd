@@ -14,8 +14,9 @@ optimalClustering(data, clusters, algorithm)
 \item{algorithm}{The clustering algorithm to be used}
 }
 \value{
-A dataframe with the memberships of the samples found in the input
-data
+An object of class "optimalClustering" containing a dataframe with
+the memberships of the samples found in the input data, the optimal
+stability score and parameter used
 }
 \description{
 Clustering with the optimal parameters estimated by these tools

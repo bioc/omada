@@ -16,9 +16,10 @@ featureSelection(data, min.k = 2, max.k = 4, step = 5)
 \item{step}{The number for additional features each feature set will contain}
 }
 \value{
-A list containing the dataframe of average bootstrap stabilities,
-where rows represent feature sets and columns number of clusters and the
-corresponding line plot
+An object of class "featureSelection" containing the dataframe of
+average bootstrap stabilities, where rows represent feature sets and columns
+number of clusters, the corresponding line plot, the number and the names of
+the selected features
 }
 \description{
 Predictor variable subsampling sets and bootstrapping stability set selection

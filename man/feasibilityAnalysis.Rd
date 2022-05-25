@@ -9,17 +9,17 @@ feasibilityAnalysis(classes = 3, samples = 320, features = 400)
 }
 \arguments{
 \item{classes}{The number of classes of samples to be reflected in the
-simulated dataset}
+simulated dataset. Also determines the ks to be considered
+(classes-2, classes+2)}
 
 \item{samples}{The number of samples in the simulated dataset}
 
 \item{features}{The number of features in the simulated dataset}
 }
 \value{
-A list containing the average stabilities for all number of
-clusters(k),
-the average (over all k) and maximum stabilities observed and the generated
-dataset
+An object of class "feasibilityAnalysis" containing the average
+stabilities for all number of clusters(k), the average (over all k) and
+maximum stabilities observed and the generated dataset
 }
 \description{
 Simulating dataset and calculate stabilities over different number of

@@ -12,13 +12,13 @@ feasibilityAnalysisDataBased(data, classes = 3)
 samples, features and numeric}
 
 \item{classes}{The number of classes of samples to be reflected in the
-simulated dataset}
+simulated dataset. Also determines the ks to be considered
+(classes-2, classes+2)}
 }
 \value{
-A list containing the average stabilities for all number of
-clusters(k),
-the average (over all k) and maximum stabilities observed and the generated
-dataset
+An object of class "feasibilityAnalysis" containing the average
+stabilities for all number of clusters(k), the average (over all k) and
+maximum stabilities observed and the generated dataset
 }
 \description{
 Simulating dataset based on existing dataset's dimensions, mean and standard

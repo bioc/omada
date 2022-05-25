@@ -42,3 +42,4 @@ Encoding: UTF-8
 RoxygenNote: 7.1.2
 VignetteBuilder: knitr
 biocViews: Software, Clustering, RNASeq, GeneExpression
+LazyData: true

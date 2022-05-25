@@ -5,7 +5,7 @@
 #' @param method.upper.k The upper limit of clusters, k, to be considered.
 #' Must be more than 2
 #'
-#' @return A object of class "clusterAnalysis" containing
+#' @return An object of class "clusterAnalysis" containing
 #' partition.agreement.scores,partition.agreement.plot,feature.selection.scores,
 #' feature.selection.plot,cluster.voting.scores,
 #' cluster.voting.cluster.memberships,cluster.voting.metric.votes,
@@ -31,21 +31,26 @@ omada <- function(data, method.upper.k = 5) {
         clusteringMethodSelection(data, method.upper.k = method.upper.k,
                                   number.of.comparisons = 3)
 
-    pa.df <- methods.results[[1]] # partition agreement values
-    pa.plot <- methods.results[[2]] # partition agreement line plot
+    pa.df <- get_partition_agreement_scores(methods.results)
+    pa.plot <- plot_partition_agreement(methods.results)
 
-    optimal.method <- names(which.max(colMeans(pa.df[1:3])))
+    optimal.method <- names(which.max(colMeans(pa.df[1:3]))) # Selected method
 
     # Running feature selection so that we consider 5 steps in total
     step <- dim(data)[2]/5
     feature.results <- featureSelection(data, min.k = 2,
                                         max.k = method.upper.k, step = step)
 
-    fs.df <- feature.results[[1]] # stability values
-    fs.plot <- feature.results[[2]] # stability line plot
+    fs.df <- get_average_feature_k_stabilities(feature.results) # stability values
+    fs.plot <- plot_average_stabilities(feature.results) # stability line plot
 
-    optimal.number.of.variant.features <-
-        fs.df[which.max(fs.df$means),]["featureSet"][[1]]
+    # Selected  features
+    optimal.features <- get_optimal_features(feature.results)
+    optimal.number.of.features <-
+        get_optimal_number_of_features(feature.results)
+
+    # Selected dataset
+    data <- data[,optimal.features]
 
     # Running the voting for k
     if (optimal.method == "spectral") {
@@ -58,37 +63,170 @@ omada <- function(data, method.upper.k = 5) {
 
     cluster.voting.results <- clusterVoting(data, 2, method.upper.k,
                                             optimal.method.abbr)
-    cv.scores <- cluster.voting.results[[1]]
-    cv.clusters <- cluster.voting.results[[2]]
-    cv.votes <- cluster.voting.results[[3]]
-    cv.ensemble <- cluster.voting.results[[4]]
-    cv.plot <- cluster.voting.results[[5]]
+
+    cv.scores <- get_internal_metric_scores(cluster.voting.results)
+    cv.clusters <- get_cluster_memberships_k(cluster.voting.results)
+    cv.votes <- get_metric_votes_k(cluster.voting.results)
+    cv.ensemble <- get_vote_frequencies_k(cluster.voting.results)
+    cv.plot <- plot_vote_frequencies(cluster.voting.results)
 
     optimal.k <-
         as.numeric(substring(
             cv.ensemble[which.max(cv.ensemble$Frequency),][[1]], 2))
 
     optimal.clustering <- optimalClustering(data, optimal.k, optimal.method)
-    memberships <- optimal.clustering[[1]]
+
+    # Generate memberships
+    memberships <- get_optimal_memberships(optimal.clustering)
+    optimal.stability.score <- get_optimal_stability_score(optimal.clustering)
+    optimal.parameter.used <- get_optimal_parameter_used(optimal.clustering)
 
     gene.signature.results <- geneSignatures(data, memberships)
-    gs.matrix <- gene.signature.results[[1]]
-    gs.plot <- gene.signature.results[[2]]
+    gs.matrix <- get_coefficient_dataset(gene.signature.results)
+    gs.plot <- get_top30percent_coefficients(gene.signature.results)
 
-    analysis <- list(partition.agreement.scores=pa.df,
-                       partition.agreement.plot=pa.plot,
-                       feature.selection.scores=fs.df,
-                       feature.selection.plot=fs.plot,
-                       cluster.voting.scores=cv.scores,
-                       cluster.voting.memberships=cv.clusters,
-                       cluster.voting.metric.votes=cv.votes,
-                       cluster.voting.k.votes=cv.ensemble,
-                       cluster.voting.plot=cv.plot,
-                       sample.memberships=memberships,
-                       signature.feature.coefs=gs.matrix,
-                       signature.feature.plot=gs.plot)
+    clusterAnalysis <- function(partition.agreement.scores=pa.df,
+                                partition.agreement.plot=pa.plot,
+                                feature.selection.scores=fs.df,
+                                feature.selection.plot=fs.plot,
+                                cluster.voting.scores=cv.scores,
+                                cluster.voting.memberships=cv.clusters,
+                                cluster.voting.metric.votes=cv.votes,
+                                cluster.voting.k.votes=cv.ensemble,
+                                cluster.voting.plot=cv.plot,
+                                sample.memberships=memberships,
+                                signature.feature.coefs=gs.matrix,
+                                signature.feature.plot=gs.plot){
 
-    class(analysis) <- "clusterAnalysis"
+        ca <- list(partition.agreement.scores = partition.agreement.scores,
+                   partition.agreement.plot = partition.agreement.plot,
+                   feature.selection.scores = feature.selection.scores,
+                   feature.selection.plot = feature.selection.plot,
+                   cluster.voting.scores = cluster.voting.scores,
+                   cluster.voting.memberships = cluster.voting.memberships,
+                   cluster.voting.metric.votes = cluster.voting.metric.votes,
+                   cluster.voting.k.votes = cluster.voting.k.votes,
+                   cluster.voting.plot = cluster.voting.plot,
+                   sample.memberships = sample.memberships,
+                   signature.feature.coefs = signature.feature.coefs,
+                   signature.feature.plot = signature.feature.plot
+                   )
 
-    return(analysis)
+        ## Set the name for the class
+        class(ca) <- "clusterAnalysis"
+
+        return(ca)
+    }
+
+    cluster.analysis <- clusterAnalysis()
+
+    return(cluster.analysis)
+}
+
+#' @export
+get_partition_agreement_scores <- function(object) {
+    UseMethod("get_partition_agreement_scores")
+}
+#' @export
+get_partition_agreement_scores.clusterAnalysis <- function(object) {
+    object$partition.agreement.scores
+}
+
+#' @export
+plot_partition_agreement <- function(object) {
+    UseMethod("plot_partition_agreement")
+}
+#' @export
+plot_partition_agreement.clusterAnalysis <- function(object) {
+    object$partition.agreement.plot
+}
+
+#' @export
+get_feature_selection_scores <- function(object) {
+    UseMethod("get_feature_selection_scores")
+}
+#' @export
+get_feature_selection_scores.clusterAnalysis <- function(object) {
+    object$feature.selection.scores
+}
+
+#' @export
+plot_feature_selection <- function(object) {
+    UseMethod("plot_feature_selection")
+}
+#' @export
+plot_feature_selection.clusterAnalysis <- function(object) {
+    object$feature.selection.plot
+}
+
+#' @export
+get_cluster_voting_scores <- function(object) {
+    UseMethod("get_cluster_voting_scores")
+}
+#' @export
+get_cluster_voting_scores.clusterAnalysis <- function(object) {
+    object$cluster.voting.scores
+}
+
+#' @export
+get_cluster_voting_memberships <- function(object) {
+    UseMethod("get_cluster_voting_memberships")
+}
+#' @export
+get_cluster_voting_memberships.clusterAnalysis <- function(object) {
+    object$cluster.voting.memberships
+}
+
+#' @export
+get_cluster_voting_metric_votes <- function(object) {
+    UseMethod("get_cluster_voting_metric_votes")
+}
+#' @export
+get_cluster_voting_metric_votes.clusterAnalysis <- function(object) {
+    object$cluster.voting.metric.votes
+}
+
+#' @export
+get_cluster_voting_k_votes <- function(object) {
+    UseMethod("get_cluster_voting_k_votes")
+}
+#' @export
+get_cluster_voting_k_votes.clusterAnalysis <- function(object) {
+    object$cluster.voting.k.votes
+}
+
+#' @export
+plot_cluster_voting <- function(object) {
+    UseMethod("plot_cluster_voting")
+}
+#' @export
+plot_cluster_voting.clusterAnalysis <- function(object) {
+    object$cluster.voting.plot
+}
+
+#' @export
+get_sample_memberships <- function(object) {
+    UseMethod("get_sample_memberships")
+}
+#' @export
+get_sample_memberships.clusterAnalysis <- function(object) {
+    object$sample.memberships
+}
+
+#' @export
+get_signature_feature_coefs <- function(object) {
+    UseMethod("get_signature_feature_coefs")
+}
+#' @export
+get_signature_feature_coefs.clusterAnalysis <- function(object) {
+    object$signature.feature.coefs
+}
+
+#' @export
+plot_signature_feature <- function(object) {
+    UseMethod("plot_signature_feature")
+}
+#' @export
+plot_signature_feature.clusterAnalysis <- function(object) {
+    object$signature.feature.plot
 }

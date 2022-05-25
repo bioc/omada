@@ -2,14 +2,14 @@
 #' clusters
 #'
 #' @param classes The number of classes of samples to be reflected in the
-#' simulated dataset
+#' simulated dataset. Also determines the ks to be considered
+#' (classes-2, classes+2)
 #' @param samples The number of samples in the simulated dataset
 #' @param features The number of features in the simulated dataset
 #'
-#' @return A list containing the average stabilities for all number of
-#' clusters(k),
-#' the average (over all k) and maximum stabilities observed and the generated
-#' dataset
+#' @return An object of class "feasibilityAnalysis" containing the average
+#' stabilities for all number of clusters(k), the average (over all k) and
+#' maximum stabilities observed and the generated dataset
 #'
 #' @export
 #'
@@ -46,7 +46,15 @@ feasibilityAnalysis <- function(classes = 3, samples = 320, features = 400) {
   # Holds the boot stabilities for this feature set and every k
   boot.vector <- vector()
 
-  for(rep in 2:(classes*2)) {
+  if(classes > 3) {
+    c.min <- classes-2
+    c.max <- classes+2
+  } else {
+    c.min <- 2
+    c.max <- 4
+  }
+
+  for(rep in c.min:c.max) {
 
     sc.boot <- clusterboot(stability.dataset,
                            B = 25,
@@ -67,10 +75,66 @@ feasibilityAnalysis <- function(classes = 3, samples = 320, features = 400) {
       average.k.stabilities, mean(boot.vector[[i]]))
   }
 
-  res <-  list(stabilities = average.k.stabilities,
-               maximum_stability = max(average.k.stabilities),
-               average_stability = mean(average.k.stabilities),
-               dataset = dataset)
+  names(average.k.stabilities) <- c(paste0("k_",seq(c.min,c.max)))
 
-  return(res)
+  feasibilityAnalysis <- function(stabilities = average.k.stabilities,
+                                   maximum_stability = max(average.k.stabilities),
+                                   average_stability = mean(average.k.stabilities),
+                                   ds = dataset){
+
+    fa <- list(avg_stabilities_per_k = stabilities,
+               max_stability = maximum_stability,
+               avg_stability = average_stability,
+               generated.dataset = ds)
+
+    ## Set the name for the class
+    class(fa) <- "feasibilityAnalysis"
+
+    return(fa)
+  }
+
+  feasibility.analysis <- feasibilityAnalysis()
+
+  return(feasibility.analysis)
+}
+
+# Getters
+#' @export
+get_average_stabilities_per_k <- function(object) {
+  UseMethod("get_average_stabilities_per_k")
+}
+
+#' @export
+get_average_stabilities_per_k.feasibilityAnalysis <- function(object) {
+  object$avg_stabilities_per_k
+}
+
+#' @export
+get_average_stability <- function(object) {
+  UseMethod("get_average_stability")
+}
+
+#' @export
+get_average_stability.feasibilityAnalysis <- function(object) {
+  object$avg_stability
+}
+
+#' @export
+get_max_stability <- function(object) {
+  UseMethod("get_max_stability")
+}
+
+#' @export
+get_max_stability.feasibilityAnalysis <- function(object) {
+  object$max_stability
+}
+
+#' @export
+get_generated_dataset <- function(object) {
+  UseMethod("get_generated_dataset")
+}
+
+#' @export
+get_generated_dataset.feasibilityAnalysis <- function(object) {
+  object$generated.dataset
 }

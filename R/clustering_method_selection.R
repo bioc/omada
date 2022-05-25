@@ -5,8 +5,8 @@
 #' agreements will be calculated
 #' @param number.of.comparisons The number of comparisons to average over per k
 #'
-#' @return A list containing a dataframe of partition agreement scores for a
-#' set of random parameter
+#' @return An object of class "methodSelection" containing a dataframe of
+#' partition agreement scores for a set of random parameters
 #' clustering runs across different methods and the corresponding plot
 #'
 #' @export
@@ -77,7 +77,7 @@ clusteringMethodSelection <- function(data, method.upper.k = 5,
                                 hier.agglo.algorithm.2 = p2h.2,
                                 method.upper.k)
 
-    df.h[nrow(df.h) + 1, ] <- cur.h
+    df.h[nrow(df.h) + 1, ] <- get_partition_agreement_scores(cur.h)
   }
 
   for(i in seq(1, number.of.comparisons)) {
@@ -89,7 +89,7 @@ clusteringMethodSelection <- function(data, method.upper.k = 5,
                                 measure.2 = as.character(p1s[[2]]),
                                 method.upper.k)
 
-    df.s[nrow(df.s) + 1, ] <- cur.s
+    df.s[nrow(df.s) + 1, ] <- get_partition_agreement_scores(cur.s)
   }
 
   for(i in seq(1, number.of.comparisons)) {
@@ -101,7 +101,7 @@ clusteringMethodSelection <- function(data, method.upper.k = 5,
                                 measure.2 = as.character(p1k[[2]]),
                                 method.upper.k)
 
-    df.k[nrow(df.k) + 1, ] <- cur.k
+    df.k[nrow(df.k) + 1, ] <- get_partition_agreement_scores(cur.k)
   }
 
 
@@ -133,5 +133,38 @@ clusteringMethodSelection <- function(data, method.upper.k = 5,
                   vjust = 1, hjust = -0.25)) +
     ylab("Partition Agreement (ARI)")
 
-  return(list(df.final,agreements.plot))
+  methodSelection <- function(partition.agreement.scores = df.final,
+                                  partition.agreement.plot = agreements.plot){
+
+    ms <- list(partition.agreement.scores = partition.agreement.scores,
+               partition.agreement.plot = partition.agreement.plot)
+
+    ## Set the name for the class
+    class(ms) <- "methodSelection"
+
+    return(ms)
+  }
+
+  method.Selection <- methodSelection()
+
+  return(method.Selection)
+}
+
+# Getters
+#' @export
+get_partition_agreement_scores <- function(object) {
+  UseMethod("get_partition_agreement_scores")
+}
+#' @export
+get_partition_agreement_scores.methodSelection <- function(object) {
+  object$partition.agreement.scores
+}
+
+#' @export
+plot_partition_agreement <- function(object) {
+  UseMethod("plot_partition_agreement")
+}
+#' @export
+plot_partition_agreement.methodSelection <- function(object) {
+  object$partition.agreement.plot
 }

@@ -18,7 +18,7 @@ clusterVoting(data, min.k, max.k, algorithm)
 runs to be measured}
 }
 \value{
-A list the contains: a matrix with metric scores for every k and
+An object of class "clusterVoting" containing a matrix with metric scores for every k and
 internal index, cluster memberships for every k, a dataframe with the k votes
  for every index, k vote frequencies and the frequency barplot of the k votes
 }
