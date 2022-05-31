@@ -7,8 +7,7 @@
 geneSignatures(data, memberships)
 }
 \arguments{
-\item{data}{A dataframe, where columns are features and rows are data points.
-The firs column must be named "id" and containing the sample ids}
+\item{data}{A dataframe, where columns are features and rows are data points.}
 
 \item{memberships}{A dataframe with column "id" (same samples ids as above)
 and column "membership" containing the cluster membership of each sample.

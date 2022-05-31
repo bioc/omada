@@ -1,7 +1,7 @@
 #' Generating the feature/gene signature per cluster
 #'
 #' @param data A dataframe, where columns are features and rows are data points.
-#' The firs column must be named "id" and containing the sample ids
+#'
 #' @param memberships A dataframe with column "id" (same samples ids as above)
 #' and column "membership" containing the cluster membership of each sample.
 #' The memberships must be strings
@@ -17,33 +17,36 @@
 
 geneSignatures <- function(data, memberships) {
 
-    print("Generating feature signatures...")
+    data <- as.data.frame(data)
+    rnames <- row.names(data)
+    data$id <- rnames
 
-    data <- data.frame(data)
-
-    if(!("id" %in% colnames(data)))
-    {
-        id <- paste0("s", 1:dim(data)[1])
-        data <- cbind(id,data)
-    }
+    # if(!("id" %in% colnames(data)))
+    # {
+    #     id <- paste0("s", 1:dim(data)[1])
+    #     data <- cbind(id,data)
+    # }
 
     # Composite data
     data <- left_join(memberships, data)
     data$id <- NULL
+    row.names(data) <- rnames
 
     # Cluster names
     clusters <- unique(memberships$membership)
 
+    print("Generating feature signatures...")
+
     # Running cross-validation Lasso to find optimal lambda value
     data.matrix <- as.matrix(data[,2:dim(data)[2]])
-    cv_model <- cv.glmnet(data.matrix, data$membership, family = "multinomial",
+    cv_model <- cv.glmnet(data.matrix(data.matrix), data$membership, family = "multinomial",
                           alpha = 1)
 
     # Optimal lambda value (minimizing test MSE)
     optimal_lambda <- cv_model$lambda.min
 
     # Running optimal lasso model
-    optimal_lasso <- glmnet(data.matrix, data$membership,
+    optimal_lasso <- glmnet(data.matrix(data.matrix), data$membership,
                             family = "multinomial",
                             alpha = 1, lambda = optimal_lambda)
 
@@ -65,7 +68,6 @@ geneSignatures <- function(data, memberships) {
     }
 
     # Calculating mean coefficient per feature across clusters
-
     coef.dataset <- filter(coef.dataset,
                            rowSums(abs(across(where(is.numeric))))!=0)
     coef.dataset$means <- rowMeans(coef.dataset)

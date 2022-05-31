@@ -49,7 +49,7 @@ Using `omada()` along with a gene expression dataframe and an upper k (number of
 ```{r omada, warning = FALSE, message = FALSE, cache = TRUE, fig.width = 7, fig.asp = .42, fig.align='center'}
 # Running the whole cascade of tools inputting an expression dataset 
 # and the upper k (number of clusters) to be investigated
-omada.analysis <- omada(toy_genes, method.upper.k = 4)
+omada.analysis <- omada(toy_genes, method.upper.k = 6)
 
 # Extract results
 pa.scores <- get_partition_agreement_scores(omada.analysis)

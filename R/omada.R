@@ -21,6 +21,8 @@
 
 omada <- function(data, method.upper.k = 5) {
 
+    rnames <- row.names(data)
+
     if(method.upper.k <= 2) {
         print("Increasing k to 3...")
         method.upper.k <- 3
@@ -51,6 +53,7 @@ omada <- function(data, method.upper.k = 5) {
 
     # Selected dataset
     data <- data[,optimal.features]
+    row.names(data) <- rnames
 
     # Running the voting for k
     if (optimal.method == "spectral") {
@@ -81,6 +84,8 @@ omada <- function(data, method.upper.k = 5) {
     optimal.stability.score <- get_optimal_stability_score(optimal.clustering)
     optimal.parameter.used <- get_optimal_parameter_used(optimal.clustering)
 
+    # Generate gene signatures
+    # data$id <- rownames(data)
     gene.signature.results <- geneSignatures(data, memberships)
     gs.matrix <- get_coefficient_dataset(gene.signature.results)
     gs.plot <- get_top30percent_coefficients(gene.signature.results)

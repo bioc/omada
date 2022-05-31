@@ -87,7 +87,7 @@ clusteringMethodSelection <- function(data, method.upper.k = 5,
                                 measure.1 = as.character(p1s[[1]]),
                                 algorithm.2 = "spectral",
                                 measure.2 = as.character(p1s[[2]]),
-                                method.upper.k)
+                                number.of.clusters = method.upper.k)
 
     df.s[nrow(df.s) + 1, ] <- get_partition_agreement_scores(cur.s)
   }
@@ -99,7 +99,7 @@ clusteringMethodSelection <- function(data, method.upper.k = 5,
                                 measure.1 = as.character(p1k[[1]]),
                                 algorithm.2 = "kmeans",
                                 measure.2 = as.character(p1k[[2]]),
-                                method.upper.k)
+                                number.of.clusters = method.upper.k)
 
     df.k[nrow(df.k) + 1, ] <- get_partition_agreement_scores(cur.k)
   }
