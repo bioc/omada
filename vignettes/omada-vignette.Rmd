@@ -54,6 +54,11 @@ omada.analysis <- omada(toy_genes, method.upper.k = 6)
 # Extract results
 pa.scores <- get_partition_agreement_scores(omada.analysis)
 fs.scores <- get_feature_selection_scores(omada.analysis)
+fs.optimal.features <- 
+  get_feature_selection_optimal_features(omada.analysis)
+fs.optimal.number.of.features <- 
+  get_feature_selection_optimal_number_of_features(omada.analysis)
+
 cv.scores <- get_cluster_voting_scores(omada.analysis)
 cv.memberships <- get_cluster_voting_memberships(omada.analysis)
 cv.metrics.votes <- get_cluster_voting_metric_votes(omada.analysis)

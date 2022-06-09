@@ -7,7 +7,8 @@
 #'
 #' @return An object of class "clusterAnalysis" containing
 #' partition.agreement.scores,partition.agreement.plot,feature.selection.scores,
-#' feature.selection.plot,cluster.voting.scores,
+#' feature.selection.plot, feature.selection.optimal.features,
+#' feature.selection.optimal.number.of.features, cluster.voting.scores,
 #' cluster.voting.cluster.memberships,cluster.voting.metric.votes,
 #' cluster.voting.k.votes,cluster.voting.plot,sample.memberships,
 #' signature.feature.coefs and signature.feature.plot
@@ -94,6 +95,10 @@ omada <- function(data, method.upper.k = 5) {
                                 partition.agreement.plot=pa.plot,
                                 feature.selection.scores=fs.df,
                                 feature.selection.plot=fs.plot,
+                                feature.selection.optimal.features=
+                                    optimal.features,
+                                feature.selection.optimal.number.of.features=
+                                    optimal.number.of.features,
                                 cluster.voting.scores=cv.scores,
                                 cluster.voting.memberships=cv.clusters,
                                 cluster.voting.metric.votes=cv.votes,
@@ -107,6 +112,10 @@ omada <- function(data, method.upper.k = 5) {
                    partition.agreement.plot = partition.agreement.plot,
                    feature.selection.scores = feature.selection.scores,
                    feature.selection.plot = feature.selection.plot,
+                   feature.selection.optimal.features=
+                       feature.selection.optimal.features,
+                   feature.selection.optimal.number.of.features=
+                       feature.selection.optimal.number.of.features,
                    cluster.voting.scores = cluster.voting.scores,
                    cluster.voting.memberships = cluster.voting.memberships,
                    cluster.voting.metric.votes = cluster.voting.metric.votes,
@@ -159,6 +168,29 @@ get_feature_selection_scores.clusterAnalysis <- function(object) {
 plot_feature_selection <- function(object) {
     UseMethod("plot_feature_selection")
 }
+
+#' @export
+get_feature_selection_optimal_number_of_features.clusterAnalysis <-
+    function(object) {
+    object$feature.selection.optimal.number.of.features
+}
+
+#' @export
+get_feature_selection_optimal_number_of_features <- function(object) {
+    UseMethod("get_feature_selection_optimal_number_of_features")
+}
+
+#' @export
+get_feature_selection_optimal_features.clusterAnalysis <-
+    function(object) {
+        object$feature.selection.optimal.features
+    }
+
+#' @export
+get_feature_selection_optimal_features <- function(object) {
+    UseMethod("get_feature_selection_optimal_features")
+}
+
 #' @export
 plot_feature_selection.clusterAnalysis <- function(object) {
     object$feature.selection.plot

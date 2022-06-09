@@ -16,7 +16,8 @@ Must be more than 2}
 \value{
 An object of class "clusterAnalysis" containing
 partition.agreement.scores,partition.agreement.plot,feature.selection.scores,
-feature.selection.plot,cluster.voting.scores,
+feature.selection.plot, feature.selection.optimal.features,
+feature.selection.optimal.number.of.features, cluster.voting.scores,
 cluster.voting.cluster.memberships,cluster.voting.metric.votes,
 cluster.voting.k.votes,cluster.voting.plot,sample.memberships,
 signature.feature.coefs and signature.feature.plot
