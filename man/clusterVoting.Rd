@@ -18,9 +18,10 @@ clusterVoting(data, min.k, max.k, algorithm)
 runs to be measured}
 }
 \value{
-An object of class "clusterVoting" containing a matrix with metric scores for every k and
-internal index, cluster memberships for every k, a dataframe with the k votes
- for every index, k vote frequencies and the frequency barplot of the k votes
+An object of class "clusterVoting" containing a matrix with metric
+ scores for every k and internal index, cluster memberships for every k, a
+ dataframe with the k votes for every index, k vote frequencies and the
+ frequency barplot of the k votes
 }
 \description{
 Estimating number of clusters through internal exhaustive ensemble majority
@@ -30,4 +31,5 @@ voting
 clusterVoting(toy_genes, 4,14,"sc")
 clusterVoting(toy_genes, 2,7,"hc")
 clusterVoting(toy_genes, 2,4,"km")
+
 }

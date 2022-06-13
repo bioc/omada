@@ -7,9 +7,10 @@
 #' @param algorithm The clustering algorithm to use for the multiple clustering
 #' runs to be measured
 #'
-#' @return An object of class "clusterVoting" containing a matrix with metric scores for every k and
-#' internal index, cluster memberships for every k, a dataframe with the k votes
-#'  for every index, k vote frequencies and the frequency barplot of the k votes
+#' @return An object of class "clusterVoting" containing a matrix with metric
+#'  scores for every k and internal index, cluster memberships for every k, a
+#'  dataframe with the k votes for every index, k vote frequencies and the
+#'  frequency barplot of the k votes
 #'
 #' @export
 #'
@@ -17,6 +18,9 @@
 #' clusterVoting(toy_genes, 4,14,"sc")
 #' clusterVoting(toy_genes, 2,7,"hc")
 #' clusterVoting(toy_genes, 2,4,"km")
+#'
+#' @importFrom diceR prepare_data
+#' @import ggplot2
 
 clusterVoting <- function(data ,min.k ,max.k, algorithm) {
 
@@ -45,24 +49,25 @@ clusterVoting <- function(data ,min.k ,max.k, algorithm) {
   for(current_k in min.k:max.k) {
 
     if(algorithm == "sc") {
-      cl <- specc(data, centers=current_k, kernel = "rbfdot")
+      cl <- kernlab::specc(data, centers=current_k, kernel = "rbfdot")
       cls <- cl@.Data
     } else if(algorithm == "hc") {
-      dist_mat <- dist(data, method = "euclidean")
-      cl <- hclust(dist_mat, method = "average")
-      cls <- cutree(cl, k = current_k)
+      dist_mat <- stats::dist(data, method = "euclidean")
+      cl <- stats::hclust(dist_mat, method = "average")
+      cls <- stats::cutree(cl, k = current_k)
     } else if(algorithm == "km") {
-      cl <- kmeans(data, current_k, algorithm = "Hartigan-Wong")
+      cl <- stats::kmeans(data, current_k, algorithm = "Hartigan-Wong")
       cls <- cl$cluster
     }
 
-    criteria <- intCriteria(data,cls,c("calinski_harabasz","dunn","pbm","tau",
-                                       "gamma", "c_index","davies_bouldin",
+    criteria <- clusterCrit::intCriteria(data,cls,c("calinski_harabasz","dunn",
+                                                    "pbm","tau", "gamma",
+                                                    "c_index","davies_bouldin",
                                        "mcclain_rao","sd_dis", "ray_turi",
                                        "g_plus","silhouette","s_dbw"))
 
     con <- clValid::connectivity(clusters = cls, Data = data)
-    comp <- compactness(data, cls)
+    comp <- diceR::compactness(data, cls)
     criteria <- c(criteria, connectivity=con, compactness=comp)
     criteria <- array(as.numeric(unlist(criteria)))
     scores[, counter] <- criteria
@@ -104,7 +109,8 @@ clusterVoting <- function(data ,min.k ,max.k, algorithm) {
   colnames(ensemble.results) <- c("k", "Frequency")
   ensemble.results$Frequency <- as.numeric(ensemble.results$Frequency)
 
-  ensemble.plot <- ggplot(ensemble.results, aes(k, Frequency, fill = k)) +
+  ensemble.plot <- ggplot2::ggplot(ensemble.results, aes(k, Frequency,
+                                                         fill = k)) +
     geom_col() +
     scale_fill_brewer(palette="Dark2")
 

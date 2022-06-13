@@ -16,6 +16,10 @@
 #' featureSelection(toy_genes, min.k = 3, max.k = 9, step = 3)
 #' featureSelection(toy_genes, min.k = 2, max.k = 4, step = 4)
 #'
+#' @importFrom fpc speccCBI
+#' @import ggplot2
+
+
 featureSelection <- function(data, min.k = 2, max.k = 4, step = 5) {
 
   print("Selecting feature subset...")
@@ -27,7 +31,7 @@ featureSelection <- function(data, min.k = 2, max.k = 4, step = 5) {
   averages.of.all.k <- list()
 
   # Sorted features based on variance across data points
-  features.variance <- data.frame(apply(data, 2, var))
+  features.variance <- data.frame(apply(data, 2, stats::var))
   colnames(features.variance) <- "variance"
   sorted.features.variance <-
     features.variance[order(features.variance$variance,decreasing = TRUE), ,
@@ -47,7 +51,7 @@ featureSelection <- function(data, min.k = 2, max.k = 4, step = 5) {
 
       cur <- sorted.features.variance$names[1:fs]
 
-      sc.boot <- clusterboot(data[,cur],
+      sc.boot <- fpc::clusterboot(data[,cur],
                              B = 25,
                              bootmethod = "boot",
                              clustermethod = speccCBI,
@@ -85,7 +89,7 @@ featureSelection <- function(data, min.k = 2, max.k = 4, step = 5) {
   all.feature.k.stabilities$featureSet <-
     as.integer(as.character(all.feature.k.stabilities$featureSet))
 
-  stabilities.plot <- ggplot(data = all.feature.k.stabilities,
+  stabilities.plot <- ggplot2::ggplot(data = all.feature.k.stabilities,
                              aes(x=featureSet, y=means)) +
     geom_line(color='firebrick',group = 1, size = 0.5) +
     geom_point(color='firebrick', group = 1) +

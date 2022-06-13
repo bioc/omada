@@ -23,4 +23,5 @@ Generating the feature/gene signature per cluster
 }
 \examples{
 geneSignatures(toy_genes, toy_gene_memberships)
+
 }

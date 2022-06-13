@@ -45,6 +45,9 @@
 #' partitionAgreement(toy_genes, algorithm.1 = "spectral", measure.1 = "rbfdot",
 #' algorithm.2 = "kmeans",measure.2 = "Lloyd", number.of.clusters = 5)
 #' @export
+#'
+#' @importFrom stats cutree
+#' @importFrom pdfCluster adj.rand.index
 
 partitionAgreement <- function(data, algorithm.1 = "hierarchical",
                                measure.1 = "canberra",
@@ -62,22 +65,22 @@ partitionAgreement <- function(data, algorithm.1 = "hierarchical",
   for(i in 2:number.of.clusters) {
     #Spectral clustering
     if(algorithm.1 == "spectral") {
-      cl <- specc(dataset, centers=i, kernel = measure.1)
+      cl <- kernlab::specc(dataset, centers=i, kernel = measure.1)
       temp <- data.frame(cl@.Data)
       cr1 <- cbind(cr1, temp)
     }
 
     #Hierarchical
     else if(algorithm.1 == "hierarchical") {
-      dist_mat <- dist(dataset, method = measure.1)
-      cl <- hclust(dist_mat, method = hier.agglo.algorithm.1)
+      dist_mat <- stats::dist(dataset, method = measure.1)
+      cl <- stats::hclust(dist_mat, method = hier.agglo.algorithm.1)
       temp <- data.frame(cutree(cl, k = i))
       cr1 <- cbind(cr1, temp)
     }
 
     # #k-means
     else if(algorithm.1 == "kmeans") {
-      cl <- kmeans(dataset, i, algorithm = measure.1)
+      cl <- stats::kmeans(dataset, i, algorithm = measure.1)
       temp <- data.frame(cl$cluster)
       cr1 <- cbind(cr1, temp)
     }
@@ -89,22 +92,22 @@ partitionAgreement <- function(data, algorithm.1 = "hierarchical",
   for(i in 2:number.of.clusters) {
     #Spectral clustering
     if(algorithm.2 == "spectral") {
-      cl <- specc(dataset, centers=i, kernel = measure.2)
+      cl <- kernlab::specc(dataset, centers=i, kernel = measure.2)
       temp <- data.frame(cl@.Data)
       cr2 <- cbind(cr2, temp)
     }
 
     #Hierarchical
     else if(algorithm.2 == "hierarchical") {
-      dist_mat <- dist(dataset, method = measure.2)
-      cl <- hclust(dist_mat, method = hier.agglo.algorithm.2)
+      dist_mat <- stats::dist(dataset, method = measure.2)
+      cl <- stats::hclust(dist_mat, method = hier.agglo.algorithm.2)
       temp <- data.frame(cutree(cl, k = i))
       cr2 <- cbind(cr2, temp)
     }
 
     #k-means
     else if(algorithm.2 == "kmeans") {
-      cl <- kmeans(dataset, i, algorithm = measure.2)
+      cl <- stats::kmeans(dataset, i, algorithm = measure.2)
       temp <- data.frame(cl$cluster)
       cr2 <- cbind(cr2, temp)
     }

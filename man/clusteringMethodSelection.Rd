@@ -27,4 +27,5 @@ clusteringMethodSelection(toy_genes, method.upper.k = 3,
 number.of.comparisons = 4)
 clusteringMethodSelection(toy_genes, method.upper.k = 2,
 number.of.comparisons = 2)
+
 }

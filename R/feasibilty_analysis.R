@@ -16,6 +16,8 @@
 #' @examples
 #' feasibilityAnalysis(classes = 3, samples = 320, features = 400)
 #' feasibilityAnalysis(classes = 4, samples = 400, features = 120)
+#'
+#' @importFrom fpc speccCBI
 
 feasibilityAnalysis <- function(classes = 3, samples = 320, features = 400) {
 
@@ -29,7 +31,7 @@ feasibilityAnalysis <- function(classes = 3, samples = 320, features = 400) {
   cl.index <- 1
   feature.index <- 1
   for(i in 1:features) {
-    temp <- rnorm(n = samples, mean = c(class.means), sd = class.sd)
+    temp <- stats::rnorm(n = samples, mean = c(class.means), sd = class.sd)
     dataset[ , ncol(dataset) + 1] <- temp # Append temp column
     colnames(dataset)[ncol(dataset)] <- paste0("feature_", feature.index)
     feature.index <- feature.index + 1
@@ -56,7 +58,7 @@ feasibilityAnalysis <- function(classes = 3, samples = 320, features = 400) {
 
   for(rep in c.min:c.max) {
 
-    sc.boot <- clusterboot(stability.dataset,
+    sc.boot <- fpc::clusterboot(stability.dataset,
                            B = 25,
                            bootmethod = "boot",
                            clustermethod = speccCBI,

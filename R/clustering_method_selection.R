@@ -16,6 +16,9 @@
 #' number.of.comparisons = 4)
 #' clusteringMethodSelection(toy_genes, method.upper.k = 2,
 #' number.of.comparisons = 2)
+#'
+#' @import ggplot2
+#' @importFrom clValid clusters
 
 clusteringMethodSelection <- function(data, method.upper.k = 5,
                                       number.of.comparisons = 3) {
@@ -114,10 +117,10 @@ clusteringMethodSelection <- function(data, method.upper.k = 5,
   s.mean <- mean(df.final$spectral)
   k.mean <- mean(df.final$kmeans)
 
-  df.plot <- melt(df.final, id=c("clusters"))
+  df.plot <- reshape::melt(df.final, id=c("clusters"))
   colnames(df.plot) <- c("clusters", "methods", "value")
 
-  agreements.plot <- ggplot(df.plot, aes(x = clusters, y = value)) +
+  agreements.plot <- ggplot2::ggplot(df.plot, aes(x = clusters, y = value)) +
     geom_line(aes(color = methods)) +
     geom_hline(aes(yintercept=h.mean), linetype="dashed") +
     geom_hline(aes(yintercept=s.mean), linetype="dashed") +

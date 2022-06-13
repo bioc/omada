@@ -13,6 +13,8 @@
 #' @examples
 #' optimalClustering(toy_genes, 4,"spectral")
 #' optimalClustering(toy_genes, 2,"kmeans")
+#'
+#' @importFrom fpc speccCBI hclustCBI kmeansCBI
 
 optimalClustering <- function(data, clusters, algorithm) {
 
@@ -28,7 +30,7 @@ optimalClustering <- function(data, clusters, algorithm) {
 
     for (par in spectral.kernels) {
 
-      sc.boot <- clusterboot(data,
+      sc.boot <- fpc::clusterboot(data,
                              B = 25,
                              bootmethod = "boot",
                              clustermethod = speccCBI,
@@ -55,7 +57,7 @@ optimalClustering <- function(data, clusters, algorithm) {
 
     for (par in hierarchical.methods) {
 
-      sc.boot <- clusterboot(data,
+      sc.boot <- fpc::clusterboot(data,
                              B = 25,
                              bootmethod = "boot",
                              clustermethod = hclustCBI,
@@ -81,7 +83,7 @@ optimalClustering <- function(data, clusters, algorithm) {
 
     for (par in kmeans.kernels) {
 
-      sc.boot <- clusterboot(data,
+      sc.boot <- fpc::clusterboot(data,
                              B = 25,
                              bootmethod = "boot",
                              clustermethod = kmeansCBI,

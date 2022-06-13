@@ -14,8 +14,14 @@
 #'
 #' @examples
 #' geneSignatures(toy_genes, toy_gene_memberships)
+#'
+#' @import ggplot2
+#' @importFrom dplyr across filter %>% left_join
+
 
 geneSignatures <- function(data, memberships) {
+
+    # utils::globalVariables("where", add=FALSE)
 
     data <- as.data.frame(data)
     rnames <- row.names(data)
@@ -39,19 +45,19 @@ geneSignatures <- function(data, memberships) {
 
     # Running cross-validation Lasso to find optimal lambda value
     data.matrix <- as.matrix(data[,2:dim(data)[2]])
-    cv_model <- cv.glmnet(data.matrix(data.matrix), data$membership, family = "multinomial",
-                          alpha = 1)
+    cv_model <- glmnet::cv.glmnet(data.matrix(data.matrix), data$membership,
+                                  family = "multinomial", alpha = 1)
 
     # Optimal lambda value (minimizing test MSE)
     optimal_lambda <- cv_model$lambda.min
 
     # Running optimal lasso model
-    optimal_lasso <- glmnet(data.matrix(data.matrix), data$membership,
+    optimal_lasso <- glmnet::glmnet(data.matrix(data.matrix), data$membership,
                             family = "multinomial",
                             alpha = 1, lambda = optimal_lambda)
 
     # Extract coefficients for minimized test MSE)
-    Coefficients <- coef(optimal_lasso, s = "min")
+    Coefficients <- stats::coef(optimal_lasso, s = "min")
 
     # Formatting coefficient dataframe per cluster
     ns <- names(Coefficients)
@@ -78,9 +84,10 @@ geneSignatures <- function(data, memberships) {
 
     # retain top 30%
     coef.dataset <- coef.dataset[1:round(dim(coef.dataset)[1]*0.3, digits = 0),]
-    coef.data.melt <- melt(coef.dataset)
+    coef.data.melt <- reshape::melt(coef.dataset)
 
-    coef.30perc <- ggplot(data = coef.data.melt, aes(x = features, y = value,
+    coef.30perc <- ggplot2::ggplot(data = coef.data.melt,
+                                   aes(x = features, y = value,
                                                      fill = variable)) +
         geom_bar(stat = "identity") +
         theme(axis.title.x=element_blank(),
