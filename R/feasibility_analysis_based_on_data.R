@@ -17,6 +17,7 @@
 #' feasibilityAnalysisDataBased(data = toy_genes, classes = 2)
 #'
 #' @importFrom fpc speccCBI
+#' @importFrom stats sd
 
 feasibilityAnalysisDataBased <- function(data, classes = 3) {
   samples = dim(data)[1]
