@@ -7,7 +7,7 @@
 #' simulated dataset. Also determines the ks to be considered
 #' (classes-2, classes+2)
 #' @return An object of class "feasibilityAnalysis" containing the average
-#' stabilities for all number of clusters(k), the average (over all k) and
+#' stabilities for all numbers of clusters(k), the average (over all k) and
 #' maximum stabilities observed and the generated dataset
 #'
 #' @export
@@ -113,45 +113,4 @@ feasibilityAnalysisDataBased <- function(data, classes = 3) {
   feasibility.analysis <- feasibilityAnalysis()
 
   return(feasibility.analysis)
-}
-
-# Getters
-#' @export
-get_average_stabilities_per_k <- function(object) {
-  UseMethod("get_average_stabilities_per_k")
-}
-
-#' @export
-get_average_stabilities_per_k.feasibilityAnalysis <- function(object) {
-  object$avg_stabilities_per_k
-}
-
-#' @export
-get_average_stability <- function(object) {
-  UseMethod("get_average_stability")
-}
-
-#' @export
-get_average_stability.feasibilityAnalysis <- function(object) {
-  object$avg_stability
-}
-
-#' @export
-get_max_stability <- function(object) {
-  UseMethod("get_max_stability")
-}
-
-#' @export
-get_max_stability.feasibilityAnalysis <- function(object) {
-  object$max_stability
-}
-
-#' @export
-get_generated_dataset <- function(object) {
-  UseMethod("get_generated_dataset")
-}
-
-#' @export
-get_generated_dataset.feasibilityAnalysis <- function(object) {
-  object$generated.dataset
 }

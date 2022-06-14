@@ -17,7 +17,7 @@ simulated dataset. Also determines the ks to be considered
 }
 \value{
 An object of class "feasibilityAnalysis" containing the average
-stabilities for all number of clusters(k), the average (over all k) and
+stabilities for all numbers of clusters(k), the average (over all k) and
 maximum stabilities observed and the generated dataset
 }
 \description{

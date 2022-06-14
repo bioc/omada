@@ -123,31 +123,3 @@ optimalClustering <- function(data, clusters, algorithm) {
 
   return(optimal.clustering)
 }
-
-# Getters
-#' @export
-get_optimal_memberships <- function(object) {
-  UseMethod("get_optimal_memberships")
-}
-#' @export
-get_optimal_memberships.optimalClustering <- function(object) {
-  object$optimal.memberships
-}
-
-#' @export
-get_optimal_stability_score <- function(object) {
-  UseMethod("get_optimal_stability_score")
-}
-#' @export
-get_optimal_stability_score.optimalClustering <- function(object) {
-  object$optimal.stability.score
-}
-
-#' @export
-get_optimal_parameter_used <- function(object) {
-  UseMethod("get_optimal_parameter_used")
-}
-#' @export
-get_optimal_parameter_used.optimalClustering <- function(object) {
-  object$optimal.parameter.used
-}

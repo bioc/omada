@@ -152,22 +152,3 @@ clusteringMethodSelection <- function(data, method.upper.k = 5,
 
   return(method.Selection)
 }
-
-# Getters
-#' @export
-get_partition_agreement_scores <- function(object) {
-  UseMethod("get_partition_agreement_scores")
-}
-#' @export
-get_partition_agreement_scores.methodSelection <- function(object) {
-  object$partition.agreement.scores
-}
-
-#' @export
-plot_partition_agreement <- function(object) {
-  UseMethod("plot_partition_agreement")
-}
-#' @export
-plot_partition_agreement.methodSelection <- function(object) {
-  object$partition.agreement.plot
-}

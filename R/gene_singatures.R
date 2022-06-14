@@ -117,22 +117,3 @@ geneSignatures <- function(data, memberships) {
 
     return(gene.signature)
 }
-
-# Getters
-#' @export
-get_coefficient_dataset <- function(object) {
-    UseMethod("get_coefficient_dataset")
-}
-#' @export
-get_coefficient_dataset.geneSignature <- function(object) {
-    object$coefficient.dataset
-}
-
-#' @export
-get_top30percent_coefficients <- function(object) {
-    UseMethod("get_top30percent_coefficients")
-}
-#' @export
-get_top30percent_coefficients.geneSignature <- function(object) {
-    object$top30percent.coefficients
-}
