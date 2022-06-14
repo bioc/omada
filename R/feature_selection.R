@@ -131,7 +131,14 @@ featureSelection <- function(data, min.k = 2, max.k = 4, step = 5) {
   return(feature.selection)
 }
 
+#An object of class "featureSelection" containing the dataframe of
+#' average bootstrap stabilities, where rows represent feature sets and columns
+#' number of clusters, the corresponding line plot, the number and the names of
+#' the selected features
+
 # Getters
+#' @param object Object of class featureSelection
+#' @return Dataframe of average bootstrap stabilities
 #' @export
 get_average_feature_k_stabilities <- function(object) {
   UseMethod("get_average_feature_k_stabilities")
@@ -141,6 +148,8 @@ get_average_feature_k_stabilities.featureSelection <- function(object) {
   object$average.feature.k.stabilities
 }
 
+#' @param object Object of class featureSelection
+#' @return Line plot of average bootstrap stabilities
 #' @export
 plot_average_stabilities <- function(object) {
   UseMethod("plot_average_stabilities")
@@ -150,6 +159,8 @@ plot_average_stabilities.featureSelection <- function(object) {
   object$average.stabilities.plot
 }
 
+#' @param object Object of class featureSelection
+#' @return The number of selected optimal features
 #' @export
 get_optimal_number_of_features <- function(object) {
   UseMethod("get_optimal_number_of_features")
@@ -159,6 +170,8 @@ get_optimal_number_of_features.featureSelection <- function(object) {
   object$optimal.number.of.features
 }
 
+#' @param object Object of class featureSelection
+#' @return The selected optimal features
 #' @export
 get_optimal_features <- function(object) {
   UseMethod("get_optimal_features")
