@@ -16,6 +16,6 @@ Cluster memberships for every k
 Get cluster memberships for every k
 }
 \examples{
-cv.object <- clusterVoting(toy_genes, 4,8,"sc")
+cv.object <- clusterVoting(toy_genes, 4,6,"sc")
 get_cluster_memberships_k(cv.object)
 }

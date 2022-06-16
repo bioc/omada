@@ -17,6 +17,6 @@ input data
 Get a dataframe with the memberships of the samples found in the input data
 }
 \examples{
-oa.object <- omada(toy_genes, method.upper.k = 6)
+oa.object <- omada(toy_genes, method.upper.k = 4)
 get_sample_memberships(oa.object)
 }

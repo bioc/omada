@@ -5,7 +5,7 @@
 #' @export
 #'
 #' @examples
-#' oa.object <- omada(toy_genes, method.upper.k = 6)
+#' oa.object <- omada(toy_genes, method.upper.k = 4)
 #' plot_feature_selection(oa.object)
 plot_feature_selection <- function(object) {
     UseMethod("plot_feature_selection")

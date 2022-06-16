@@ -16,6 +16,6 @@ Dataframe with the k votes for every index
 Get a dataframe with the k votes for every index
 }
 \examples{
-oa.object <- omada(toy_genes, method.upper.k = 6)
+oa.object <- omada(toy_genes, method.upper.k = 4)
 get_cluster_voting_metric_votes(oa.object)
 }

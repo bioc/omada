@@ -5,7 +5,7 @@
 #' @export
 #'
 #' @examples
-#' fs.object <- featureSelection(toy_genes, min.k = 3, max.k = 6, step = 3)
+#' fs.object <- featureSelection(toy_genes, min.k = 3, max.k = 6, step = 10)
 #' plot_average_stabilities(fs.object)
 plot_average_stabilities <- function(object) {
     UseMethod("plot_average_stabilities")

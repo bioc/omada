@@ -16,6 +16,6 @@ Matrix with k vote frequencies
 Get k vote frequencies
 }
 \examples{
-cv.object <- clusterVoting(toy_genes, 4,8,"sc")
+cv.object <- clusterVoting(toy_genes, 4,6,"sc")
 get_vote_frequencies_k(cv.object)
 }

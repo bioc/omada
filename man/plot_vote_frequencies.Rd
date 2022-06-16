@@ -16,6 +16,6 @@ Plot k vote frequencies
 Plot k vote frequencies
 }
 \examples{
-cv.object <- clusterVoting(toy_genes, 4,8,"sc")
+cv.object <- clusterVoting(toy_genes, 4,6,"sc")
 plot_vote_frequencies(cv.object)
 }

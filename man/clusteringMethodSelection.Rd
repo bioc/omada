@@ -24,6 +24,6 @@ Method Selection through intra-method Consensus Partition Consistency
 }
 \examples{
 clusteringMethodSelection(toy_genes, method.upper.k = 3,
-number.of.comparisons = 3)
+number.of.comparisons = 2)
 
 }

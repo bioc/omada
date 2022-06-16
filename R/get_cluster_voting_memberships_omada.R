@@ -5,7 +5,7 @@
 #' @export
 #'
 #' @examples
-#' oa.object <- omada(toy_genes, method.upper.k = 6)
+#' oa.object <- omada(toy_genes, method.upper.k = 4)
 #' get_cluster_voting_memberships(oa.object)
 get_cluster_voting_memberships <- function(object) {
     UseMethod("get_cluster_voting_memberships")

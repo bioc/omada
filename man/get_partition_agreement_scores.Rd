@@ -30,6 +30,6 @@ Get a dataframe of partition agreement scores
 ms.object <- clusteringMethodSelection(toy_genes, method.upper.k = 3,
 number.of.comparisons = 2)
 get_partition_agreement_scores(ms.object)
-oa.object <- omada(toy_genes, method.upper.k = 6)
+oa.object <- omada(toy_genes, method.upper.k = 4)
 get_partition_agreement_scores(oa.object)
 }

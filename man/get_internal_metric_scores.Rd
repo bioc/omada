@@ -16,6 +16,6 @@ A matrix with metric scores for every k and internal index
 Get a matrix with metric scores for every k and internal index
 }
 \examples{
-cv.object <- clusterVoting(toy_genes, 4,8,"sc")
+cv.object <- clusterVoting(toy_genes, 4,6,"sc")
 get_internal_metric_scores(cv.object)
 }

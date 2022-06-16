@@ -16,6 +16,6 @@ The list of optimal features
 Get the optimal features
 }
 \examples{
-oa.object <- omada(toy_genes, method.upper.k = 6)
+oa.object <- omada(toy_genes, method.upper.k = 4)
 get_feature_selection_optimal_features(oa.object)
 }

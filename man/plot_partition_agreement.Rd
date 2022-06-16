@@ -26,6 +26,6 @@ Plot of partition agreement scores
 ms.object <- clusteringMethodSelection(toy_genes, method.upper.k = 3,
 number.of.comparisons = 2)
 plot_partition_agreement(ms.object)
-oa.object <- omada(toy_genes, method.upper.k = 6)
+oa.object <- omada(toy_genes, method.upper.k = 4)
 plot_partition_agreement(oa.object)
 }

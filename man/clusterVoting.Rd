@@ -29,7 +29,5 @@ voting
 }
 \examples{
 clusterVoting(toy_genes, 4,14,"sc")
-clusterVoting(toy_genes, 2,7,"hc")
-clusterVoting(toy_genes, 2,4,"km")
 
 }

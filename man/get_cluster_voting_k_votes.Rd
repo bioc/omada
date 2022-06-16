@@ -16,6 +16,6 @@ Matrix with k vote frequencies
 Get k vote frequencies
 }
 \examples{
-oa.object <- omada(toy_genes, method.upper.k = 6)
+oa.object <- omada(toy_genes, method.upper.k = 4)
 get_cluster_voting_k_votes(oa.object)
 }

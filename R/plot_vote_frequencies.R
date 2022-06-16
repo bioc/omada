@@ -5,7 +5,7 @@
 #' @export
 #'
 #' @examples
-#' cv.object <- clusterVoting(toy_genes, 4,8,"sc")
+#' cv.object <- clusterVoting(toy_genes, 4,6,"sc")
 #' plot_vote_frequencies(cv.object)
 plot_vote_frequencies <- function(object) {
     UseMethod("plot_vote_frequencies")

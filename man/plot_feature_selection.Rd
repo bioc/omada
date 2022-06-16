@@ -16,6 +16,6 @@ Line plot of average bootstrap stabilities
 Plot the average bootstrap stabilities
 }
 \examples{
-oa.object <- omada(toy_genes, method.upper.k = 6)
+oa.object <- omada(toy_genes, method.upper.k = 4)
 plot_feature_selection(oa.object)
 }

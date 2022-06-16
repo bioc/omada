@@ -6,7 +6,7 @@
 #' @export
 #'
 #' @examples
-#' oa.object <- omada(toy_genes, method.upper.k = 6)
+#' oa.object <- omada(toy_genes, method.upper.k = 4)
 #' get_partition_agreement_scores(oa.object)
 get_partition_agreement_scores <- function(object) {
     UseMethod("get_partition_agreement_scores")

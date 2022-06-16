@@ -5,7 +5,7 @@
 #' @export
 #'
 #' @examples
-#' oa.object <- omada(toy_genes, method.upper.k = 6)
+#' oa.object <- omada(toy_genes, method.upper.k = 4)
 #' plot_signature_feature(oa.object)
 plot_signature_feature <- function(object) {
     UseMethod("plot_signature_feature")

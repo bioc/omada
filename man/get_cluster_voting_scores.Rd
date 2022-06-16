@@ -16,6 +16,6 @@ A matrix with metric scores for every k and internal index
 Get a matrix with metric scores for every k and internal index
 }
 \examples{
-oa.object <- omada(toy_genes, method.upper.k = 6)
+oa.object <- omada(toy_genes, method.upper.k = 4)
 get_cluster_voting_scores(oa.object)
 }

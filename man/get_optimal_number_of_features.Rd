@@ -16,6 +16,6 @@ The optimal number of features
 Get the optimal number of features
 }
 \examples{
-fs.object <- featureSelection(toy_genes, min.k = 3, max.k = 6, step = 3)
+fs.object <- featureSelection(toy_genes, min.k = 3, max.k = 6, step = 10)
 get_optimal_number_of_features(fs.object)
 }

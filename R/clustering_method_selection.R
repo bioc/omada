@@ -13,7 +13,7 @@
 #'
 #' @examples
 #' clusteringMethodSelection(toy_genes, method.upper.k = 3,
-#' number.of.comparisons = 3)
+#' number.of.comparisons = 2)
 #'
 #' @import ggplot2
 #' @importFrom clValid clusters

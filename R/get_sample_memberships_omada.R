@@ -6,7 +6,7 @@
 #' @export
 #'
 #' @examples
-#' oa.object <- omada(toy_genes, method.upper.k = 6)
+#' oa.object <- omada(toy_genes, method.upper.k = 4)
 #' get_sample_memberships(oa.object)
 get_sample_memberships <- function(object) {
     UseMethod("get_sample_memberships")

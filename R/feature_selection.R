@@ -13,7 +13,7 @@
 #' @export
 #'
 #' @examples
-#' featureSelection(toy_genes, min.k = 2, max.k = 4, step = 4)
+#' featureSelection(toy_genes, min.k = 2, max.k = 4, step = 10)
 #'
 #' @importFrom fpc speccCBI
 #' @import ggplot2

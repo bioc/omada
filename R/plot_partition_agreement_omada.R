@@ -5,7 +5,7 @@
 #' @export
 #'
 #' @examples
-#' oa.object <- omada(toy_genes, method.upper.k = 6)
+#' oa.object <- omada(toy_genes, method.upper.k = 4)
 #' plot_partition_agreement(oa.object)
 plot_partition_agreement <- function(object) {
     UseMethod("plot_partition_agreement")

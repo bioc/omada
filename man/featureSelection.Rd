@@ -25,6 +25,6 @@ the selected features
 Predictor variable subsampling sets and bootstrapping stability set selection
 }
 \examples{
-featureSelection(toy_genes, min.k = 2, max.k = 4, step = 4)
+featureSelection(toy_genes, min.k = 2, max.k = 4, step = 10)
 
 }
