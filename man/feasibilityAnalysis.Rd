@@ -26,7 +26,6 @@ Simulating dataset and calculate stabilities over different number of
 clusters
 }
 \examples{
-feasibilityAnalysis(classes = 3, samples = 320, features = 400)
-feasibilityAnalysis(classes = 4, samples = 400, features = 120)
+feasibilityAnalysis(classes = 2, samples = 20, features = 30)
 
 }

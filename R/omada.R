@@ -16,7 +16,6 @@
 #' @export
 #'
 #' @examples
-#' omada(toy_genes, method.upper.k = 5)
 #' omada(toy_genes, method.upper.k = 3)
 
 omada <- function(data, method.upper.k = 5) {

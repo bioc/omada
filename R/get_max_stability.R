@@ -5,7 +5,7 @@
 #' @export
 #'
 #' @examples
-#' fa.object <- feasibilityAnalysis(classes = 4, samples = 50, features = 15)
+#' fa.object <- feasibilityAnalysis(classes = 2, samples = 10, features = 15)
 #' maximum.st <- get_max_stability(fa.object)
 get_max_stability <- function(object) {
     UseMethod("get_max_stability")

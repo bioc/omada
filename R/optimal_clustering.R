@@ -11,7 +11,6 @@
 #' @export
 #'
 #' @examples
-#' optimalClustering(toy_genes, 4,"spectral")
 #' optimalClustering(toy_genes, 2,"kmeans")
 #'
 #' @importFrom fpc speccCBI hclustCBI kmeansCBI

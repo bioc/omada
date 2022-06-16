@@ -16,6 +16,6 @@ Average stabilities for all numbers of clusters(k)
 Get average stabilities for all numbers of clusters(k)
 }
 \examples{
-fa.object <- feasibilityAnalysis(classes = 4, samples = 50, features = 15)
+fa.object <- feasibilityAnalysis(classes = 2, samples = 10, features = 15)
 average.sts.k <- get_average_stabilities_per_k(fa.object)
 }

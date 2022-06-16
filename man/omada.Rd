@@ -27,6 +27,5 @@ A wrapper function that utilizes all tools to produce the optimal
 sample memberships
 }
 \examples{
-omada(toy_genes, method.upper.k = 5)
 omada(toy_genes, method.upper.k = 3)
 }

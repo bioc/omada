@@ -25,7 +25,6 @@ Simulating dataset based on existing dataset's dimensions, mean and standard
 deviation
 }
 \examples{
-feasibilityAnalysisDataBased(data = toy_genes, classes = 3)
 feasibilityAnalysisDataBased(data = toy_genes, classes = 2)
 
 }
