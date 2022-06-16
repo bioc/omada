@@ -99,7 +99,7 @@ agreement.results <- partitionAgreement(toy_genes, algorithm.1 = "spectral",
                                         number.of.clusters = 3)
 
 # Extract results
-pa.scores <- get_partition_agreement_scores(agreement.results)
+pa.scores <- get_agreement_scores(agreement.results)
 ```
 
 ### Selecting the most appropriate features
@@ -161,6 +161,6 @@ signature.results <- geneSignatures(toy_genes, toy_gene_memberships)
 signature.dataframe <- get_coefficient_dataset(signature.results)
 
 # Plot results
-get_top30percent_coefficients(signature.results)
+plot_top30percent_coefficients(signature.results)
 ```
 

@@ -15,3 +15,7 @@ The list of optimal features
 \description{
 Get the optimal features
 }
+\examples{
+fs.object <- featureSelection(toy_genes, min.k = 3, max.k = 6, step = 3)
+get_optimal_features(fs.object)
+}

@@ -2,7 +2,7 @@ Package: omada
 Type: Package
 Title: Machine learning tools for automated transcriptome 
     clustering analysis
-Version: 0.99.11
+Version: 0.99.12
 Authors@R: person("Sokratis Kariotis", "Developer", role = c("aut", "cre"),
                      email = "sokratiskariotis@gmail.com")
 Description: Symptomatic heterogeneity in complex diseases reveals differences 

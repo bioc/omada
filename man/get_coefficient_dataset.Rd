@@ -15,3 +15,7 @@ A list of LASSO (regression analysis) coefficients of each gene
 \description{
 Get a list of LASSO (regression analysis) coefficients of each gene
 }
+\examples{
+gs.object <- geneSignatures(toy_genes, toy_gene_memberships)
+get_coefficient_dataset(gs.object)
+}

@@ -15,3 +15,7 @@ Line plot of average bootstrap stabilities
 \description{
 Plot the average bootstrap stabilities
 }
+\examples{
+fs.object <- featureSelection(toy_genes, min.k = 3, max.k = 6, step = 3)
+plot_average_stabilities(fs.object)
+}

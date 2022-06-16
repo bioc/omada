@@ -4,6 +4,10 @@
 #' @return A dataframe with the memberships of the samples found in the
 #' input data
 #' @export
+#'
+#' @examples
+#' oa.object <- omada(toy_genes, method.upper.k = 6)
+#' get_sample_memberships(oa.object)
 get_sample_memberships <- function(object) {
     UseMethod("get_sample_memberships")
 }

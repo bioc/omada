@@ -3,6 +3,10 @@
 #' @param object An object of class "clusterAnalysis"
 #' @return Matrix with k vote frequencies
 #' @export
+#'
+#' @examples
+#' oa.object <- omada(toy_genes, method.upper.k = 6)
+#' get_cluster_voting_k_votes(oa.object)
 get_cluster_voting_k_votes <- function(object) {
     UseMethod("get_cluster_voting_k_votes")
 }

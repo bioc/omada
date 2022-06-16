@@ -15,3 +15,7 @@ Simulated dataset
 \description{
 Get the simulated dataset
 }
+\examples{
+fa.object <- feasibilityAnalysis(classes = 4, samples = 50, features = 15)
+generated.ds <- get_generated_dataset(fa.object)
+}

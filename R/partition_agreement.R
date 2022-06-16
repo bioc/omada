@@ -151,12 +151,3 @@ partitionAgreement <- function(data, algorithm.1 = "hierarchical",
 
   return(partition.agreement)
 }
-
-#' @export
-get_partition_agreement_scores <- function(object) {
-  UseMethod("get_partition_agreement_scores")
-}
-#' @export
-get_partition_agreement_scores.partitionAgreement <- function(object) {
-  object$ari.scores
-}

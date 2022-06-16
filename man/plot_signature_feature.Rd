@@ -15,3 +15,7 @@ A plot of the highest 30 percentage of coefficients per cluster
 \description{
 Plot of the highest 30 percentage of coefficients per cluster
 }
+\examples{
+oa.object <- omada(toy_genes, method.upper.k = 6)
+plot_signature_feature(oa.object)
+}

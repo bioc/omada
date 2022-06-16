@@ -15,3 +15,7 @@ The average stability(over all k)
 \description{
 Get the average stability(over all k)
 }
+\examples{
+fa.object <- feasibilityAnalysis(classes = 4, samples = 50, features = 15)
+average.st <- get_average_stability(fa.object)
+}

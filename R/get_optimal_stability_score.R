@@ -3,6 +3,10 @@
 #' @param object An object of class "optimalClustering"
 #' @return The optimal stability score
 #' @export
+#'
+#' @examples
+#' oc.object <- optimalClustering(toy_genes, 4, "spectral")
+#' get_optimal_stability_score(oc.object)
 get_optimal_stability_score <- function(object) {
     UseMethod("get_optimal_stability_score")
 }

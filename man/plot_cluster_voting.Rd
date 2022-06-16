@@ -15,3 +15,7 @@ Plot k vote frequencies
 \description{
 Plot k vote frequencies
 }
+\examples{
+oa.object <- omada(toy_genes, method.upper.k = 6)
+plot_cluster_voting(oa.object)
+}

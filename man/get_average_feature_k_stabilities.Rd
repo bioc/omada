@@ -15,3 +15,7 @@ A dataframe of average bootstrap stabilities
 \description{
 Get a dataframe of average bootstrap stabilities
 }
+\examples{
+fs.object <- featureSelection(toy_genes, min.k = 3, max.k = 6, step = 3)
+get_average_feature_k_stabilities(fs.object)
+}

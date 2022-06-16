@@ -4,6 +4,10 @@
 #' @return A dataframe with the memberships of the samples found in the
 #' input data
 #' @export
+#'
+#' @examples
+#' oc.object <- optimalClustering(toy_genes, 4, "spectral")
+#' get_optimal_memberships(oc.object)
 get_optimal_memberships <- function(object) {
     UseMethod("get_optimal_memberships")
 }

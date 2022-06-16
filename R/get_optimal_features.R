@@ -3,6 +3,10 @@
 #' @param object An object of class "featureSelection"
 #' @return The list of optimal features
 #' @export
+#'
+#' @examples
+#' fs.object <- featureSelection(toy_genes, min.k = 3, max.k = 6, step = 3)
+#' get_optimal_features(fs.object)
 get_optimal_features <- function(object) {
     UseMethod("get_optimal_features")
 }

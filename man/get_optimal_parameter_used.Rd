@@ -15,3 +15,7 @@ The optimal parameter used
 \description{
 Get the optimal parameter used
 }
+\examples{
+oc.object <- optimalClustering(toy_genes, 4, "spectral")
+get_optimal_parameter_used(oc.object)
+}

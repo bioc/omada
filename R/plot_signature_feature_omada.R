@@ -3,6 +3,10 @@
 #' @param object An object of class "clusterAnalysis"
 #' @return A plot of the highest 30 percentage of coefficients per cluster
 #' @export
+#'
+#' @examples
+#' oa.object <- omada(toy_genes, method.upper.k = 6)
+#' plot_signature_feature(oa.object)
 plot_signature_feature <- function(object) {
     UseMethod("plot_signature_feature")
 }

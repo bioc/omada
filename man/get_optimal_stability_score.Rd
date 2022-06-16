@@ -15,3 +15,7 @@ The optimal stability score
 \description{
 Get the optimal stability score
 }
+\examples{
+oc.object <- optimalClustering(toy_genes, 4, "spectral")
+get_optimal_stability_score(oc.object)
+}

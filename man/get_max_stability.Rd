@@ -15,3 +15,7 @@ The maximum stability
 \description{
 Get the maximum stability
 }
+\examples{
+fa.object <- feasibilityAnalysis(classes = 4, samples = 50, features = 15)
+maximum.st <- get_max_stability(fa.object)
+}

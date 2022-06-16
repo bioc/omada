@@ -16,3 +16,7 @@ The optimal number of features
 \description{
 Get the optimal number of features
 }
+\examples{
+oa.object <- omada(toy_genes, method.upper.k = 6)
+get_feature_selection_optimal_number_of_features(oa.object)
+}

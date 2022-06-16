@@ -80,7 +80,7 @@ clusteringMethodSelection <- function(data, method.upper.k = 5,
                                 hier.agglo.algorithm.2 = p2h.2,
                                 method.upper.k)
 
-    df.h[nrow(df.h) + 1, ] <- get_partition_agreement_scores(cur.h)
+    df.h[nrow(df.h) + 1, ] <- get_agreement_scores(cur.h)
   }
 
   for(i in seq(1, number.of.comparisons)) {
@@ -92,7 +92,7 @@ clusteringMethodSelection <- function(data, method.upper.k = 5,
                                 measure.2 = as.character(p1s[[2]]),
                                 number.of.clusters = method.upper.k)
 
-    df.s[nrow(df.s) + 1, ] <- get_partition_agreement_scores(cur.s)
+    df.s[nrow(df.s) + 1, ] <- get_agreement_scores(cur.s)
   }
 
   for(i in seq(1, number.of.comparisons)) {
@@ -104,7 +104,7 @@ clusteringMethodSelection <- function(data, method.upper.k = 5,
                                 measure.2 = as.character(p1k[[2]]),
                                 number.of.clusters = method.upper.k)
 
-    df.k[nrow(df.k) + 1, ] <- get_partition_agreement_scores(cur.k)
+    df.k[nrow(df.k) + 1, ] <- get_agreement_scores(cur.k)
   }
 
 

@@ -15,3 +15,7 @@ A dataframe of average bootstrap stabilities
 \description{
 Get a dataframe of average bootstrap stabilities
 }
+\examples{
+oa.object <- omada(toy_genes, method.upper.k = 6)
+get_feature_selection_scores(oa.object)
+}

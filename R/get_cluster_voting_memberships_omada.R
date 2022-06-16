@@ -3,6 +3,10 @@
 #' @param object An object of class "clusterAnalysis"
 #' @return Cluster memberships for every k
 #' @export
+#'
+#' @examples
+#' oa.object <- omada(toy_genes, method.upper.k = 6)
+#' get_cluster_voting_memberships(oa.object)
 get_cluster_voting_memberships <- function(object) {
     UseMethod("get_cluster_voting_memberships")
 }

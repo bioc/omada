@@ -15,3 +15,7 @@ Dataframe with the k votes for every index
 \description{
 Get a dataframe with the k votes for every index
 }
+\examples{
+cv.object <- clusterVoting(toy_genes, 4,8,"sc")
+get_metric_votes_k(cv.object)
+}

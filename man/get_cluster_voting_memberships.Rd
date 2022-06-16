@@ -15,3 +15,7 @@ Cluster memberships for every k
 \description{
 Get cluster memberships for every k
 }
+\examples{
+oa.object <- omada(toy_genes, method.upper.k = 6)
+get_cluster_voting_memberships(oa.object)
+}

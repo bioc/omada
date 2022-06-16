@@ -3,6 +3,10 @@
 #' @param object An object of class "featureSelection"
 #' @return A dataframe of average bootstrap stabilities
 #' @export
+#'
+#' @examples
+#' fs.object <- featureSelection(toy_genes, min.k = 3, max.k = 6, step = 3)
+#'get_average_feature_k_stabilities(fs.object)
 get_average_feature_k_stabilities <- function(object) {
   UseMethod("get_average_feature_k_stabilities")
 }

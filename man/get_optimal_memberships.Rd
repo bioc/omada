@@ -16,3 +16,7 @@ input data
 \description{
 Get a dataframe with the memberships of the samples found in the input data
 }
+\examples{
+oc.object <- optimalClustering(toy_genes, 4, "spectral")
+get_optimal_memberships(oc.object)
+}
