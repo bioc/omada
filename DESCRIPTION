@@ -2,9 +2,10 @@ Package: omada
 Type: Package
 Title: Machine learning tools for automated transcriptome 
     clustering analysis
-Version: 0.99.15
-Authors@R: person("Sokratis Kariotis", "Developer", role = c("aut", "cre"),
-                     email = "sokratiskariotis@gmail.com")
+Version: 0.99.17
+Authors@R: person("Sokratis", "Kariotis", role = c("aut", "cre"),
+                        email = "sokratiskariotis@gmail.com",
+                        comment = c(ORCID = "0000-0001-9993-6017"))
 Description: Symptomatic heterogeneity in complex diseases reveals differences 
     in molecular states that need to be investigated. However, selecting the 
     numerous parameters of an exploratory clustering analysis in RNA profiling 
@@ -23,7 +24,7 @@ Description: Symptomatic heterogeneity in complex diseases reveals differences
 Depends:
     pdfCluster (>= 1.0-3),
     kernlab (>= 0.9-29),
-    R (>= 4.1),
+    R (>= 4.2),
     fpc (>= 2.2-9),
     Rcpp (>= 1.0.7),
     diceR (>= 0.6.0),
@@ -40,7 +41,7 @@ Suggests:
     testthat
 License: GPL-3
 Encoding: UTF-8
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
 VignetteBuilder: knitr
 biocViews: Software, Clustering, RNASeq, GeneExpression
 LazyData: true

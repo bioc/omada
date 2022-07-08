@@ -22,10 +22,8 @@
 
 clusterVoting <- function(data ,min.k ,max.k, algorithm) {
 
-  print("Deciding on the number of clusters...")
-
   data <- as.matrix(data)
-  data <- prepare_data(data)
+  # data <- prepare_data(data)
 
   # Metrics' sizes
   k_array <- sprintf("k%s",min.k:max.k)
@@ -73,14 +71,14 @@ clusterVoting <- function(data ,min.k ,max.k, algorithm) {
     counter <- counter + 1
   }
 
-  scores[is.na(scores)] = 0
+  scores[is.na(scores)] <- 0
 
   votes <- data.frame(result=integer(), metric=character(),
                       stringsAsFactors=FALSE)
   b.counter <- 1
 
   # Determine which k has the best score
-  for(metric in 1:nrow(scores)) {
+  for(metric in seq_len(nrow(scores))) {
 
     if(metric %in% c(1,2,3,4,5,12,14,15)) {
       metric.res <- which(scores[metric,]==max(scores[metric,]))

@@ -23,7 +23,6 @@ omada <- function(data, method.upper.k = 5) {
     rnames <- row.names(data)
 
     if(method.upper.k <= 2) {
-        print("Increasing k to 3...")
         method.upper.k <- 3
     }
 
@@ -35,14 +34,14 @@ omada <- function(data, method.upper.k = 5) {
     pa.df <- get_partition_agreement_scores(methods.results)
     pa.plot <- plot_partition_agreement(methods.results)
 
-    optimal.method <- names(which.max(colMeans(pa.df[1:3]))) # Selected method
+    optimal.method <- names(which.max(colMeans(pa.df[seq_len(3)]))) # Selected method
 
     # Running feature selection so that we consider 5 steps in total
     step <- dim(data)[2]/5
     feature.results <- featureSelection(data, min.k = 2,
                                         max.k = method.upper.k, step = step)
 
-    fs.df <- get_average_feature_k_stabilities(feature.results) # stability values
+    fs.df <- get_average_feature_k_stabilities(feature.results)
     fs.plot <- plot_average_stabilities(feature.results) # stability line plot
 
     # Selected  features

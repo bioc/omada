@@ -21,8 +21,6 @@
 
 featureSelection <- function(data, min.k = 2, max.k = 4, step = 5) {
 
-  print("Selecting feature subset...")
-
   # Initiating the list of feature sets to be compared
   featureset.list <- seq(step, dim(data)[2], by=step)
 
@@ -48,7 +46,7 @@ featureSelection <- function(data, min.k = 2, max.k = 4, step = 5) {
 
     for(rep in min.k:max.k) {
 
-      cur <- sorted.features.variance$names[1:fs]
+      cur <- sorted.features.variance$names[seq_len(fs)]
 
       sc.boot <- fpc::clusterboot(data[,cur],
                              B = 25,
@@ -64,7 +62,7 @@ featureSelection <- function(data, min.k = 2, max.k = 4, step = 5) {
     }
 
     # Average over cluster stabilities for each k
-    for (i in 1:length(boot.vector)) {
+    for (i in seq_len(length(boot.vector))) {
       average.k.stabilities <- append(
         average.k.stabilities, mean(boot.vector[[i]]))
     }
@@ -106,7 +104,7 @@ featureSelection <- function(data, min.k = 2, max.k = 4, step = 5) {
     all.feature.k.stabilities[
       which.max(all.feature.k.stabilities$means),]["featureSet"][[1]]
 
-  optimal.feats <- sorted.features.variance$names[1:optimal.number]
+  optimal.feats <- sorted.features.variance$names[seq_len(optimal.number)]
 
   featureSelection <-
     function(average.feature.k.stabilities = all.feature.k.stabilities,

@@ -1,3 +1,0 @@
-News for package: omada
-
-Version 0.99.0: Devel submission to bioconductor of package omada.

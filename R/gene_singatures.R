@@ -41,8 +41,6 @@ geneSignatures <- function(data, memberships) {
     # Cluster names
     clusters <- unique(memberships$membership)
 
-    print("Generating feature signatures...")
-
     # Running cross-validation Lasso to find optimal lambda value
     data.matrix <- as.matrix(data[,2:dim(data)[2]])
     cv_model <- glmnet::cv.glmnet(data.matrix(data.matrix), data$membership,
@@ -83,7 +81,8 @@ geneSignatures <- function(data, memberships) {
     coef.dataset$means <- NULL #addition
 
     # retain top 30%
-    coef.dataset <- coef.dataset[1:round(dim(coef.dataset)[1]*0.3, digits = 0),]
+    coef.dataset <- coef.dataset[seq_len(round(dim(coef.dataset)[1]*0.3,
+                                               digits = 0)),]
     coef.data.melt <- reshape::melt(coef.dataset)
 
     coef.30perc <- ggplot2::ggplot(data = coef.data.melt,

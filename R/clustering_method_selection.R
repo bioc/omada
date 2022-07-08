@@ -21,8 +21,6 @@
 clusteringMethodSelection <- function(data, method.upper.k = 5,
                                       number.of.comparisons = 3) {
 
-  print("Comparing methods...")
-
   number.of.pairs <- number.of.comparisons*2
 
   hierarchical.algs <- c("average", "ward.D", "ward.D2", "single",

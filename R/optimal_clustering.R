@@ -17,8 +17,6 @@
 
 optimalClustering <- function(data, clusters, algorithm) {
 
-  print("Running optimal clustering...")
-
   if (algorithm == "spectral") {
 
     spectral.kernels <- c("rbfdot", "polydot", "vanilladot", "tanhdot",

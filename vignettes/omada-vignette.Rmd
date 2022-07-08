@@ -37,14 +37,17 @@ existing.dataset.analysis <- feasibilityAnalysisDataBased(data = toy_genes,
                                                           classes = 3)
 
 # Extract results of either function
-average.sts.k <- get_average_stabilities_per_k(existing.dataset.analysis)
+average.sts.k <- get_average_stabilities_per_k(new.dataset.analysis)
 maximum.st <- get_max_stability(new.dataset.analysis)
 average.st <- get_average_stability(new.dataset.analysis)
 generated.ds <- get_generated_dataset(new.dataset.analysis)
 ```
 
 ### Automated clustering analysis: Omada
-Using `omada()` along with a gene expression dataframe and an upper k (number of clusters to be considered) we can run the whole analysis toolkit to automate clustering decision making and produce the estimated optimal clusters.
+Using `omada()` along with a gene expression dataframe and an upper k (number 
+of clusters to be considered) we can run the whole analysis toolkit to automate 
+clustering decision making and produce the estimated optimal clusters. Removal 
+or imputation of NA values is required before running the any of the tools.
 
 ```{r omada, warning = FALSE, message = FALSE, cache = TRUE, fig.width = 7, fig.asp = .42, fig.align='center'}
 # Running the whole cascade of tools inputting an expression dataset 

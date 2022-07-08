@@ -19,11 +19,11 @@
 #' @importFrom stats sd
 
 feasibilityAnalysisDataBased <- function(data, classes = 3) {
-  samples = dim(data)[1]
-  features = dim(data)[2]
+  samples <- dim(data)[1]
+  features <- dim(data)[2]
 
   class <-
-    rep(paste0("Class_", LETTERS[1:classes]), length.out = samples)
+    rep(paste0("Class_", LETTERS[seq_len(classes)]), length.out = samples)
   dataset <- data.frame(class)
 
   class.sizes <- table(dataset$class)
@@ -40,7 +40,7 @@ feasibilityAnalysisDataBased <- function(data, classes = 3) {
 
   cl.index <- 1
   feature.index <- 1
-  for (i in 1:features) {
+  for (i in seq_len(features)) {
     temp <- stats::rnorm(n = samples,
                   mean = c(class.means),
                   sd = class.sd)
@@ -50,7 +50,7 @@ feasibilityAnalysisDataBased <- function(data, classes = 3) {
     feature.index <- feature.index + 1
   }
   cl.index <- cl.index + 1
-  rownames(dataset) <- paste0("sample_", 1:samples)
+  rownames(dataset) <- paste0("sample_",seq_len(samples))
 
   stability.dataset <- dataset
   stability.dataset$class <- NULL
@@ -85,8 +85,9 @@ feasibilityAnalysisDataBased <- function(data, classes = 3) {
   }
 
   # Average over cluster stabilities for each k
-  for (i in 1:length(boot.vector)) {
-    average.k.stabilities <- append(average.k.stabilities, mean(boot.vector[[i]]))
+  for (i in seq_len(length(boot.vector))) {
+    average.k.stabilities <- append(average.k.stabilities,
+                                    mean(boot.vector[[i]]))
   }
 
   names(average.k.stabilities) <- c(paste0("k_", seq(c.min, c.max)))
