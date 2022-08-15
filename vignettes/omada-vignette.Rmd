@@ -22,6 +22,7 @@ Loading the library to access the functions and the two toy datasets: gene expre
 
 ```{r setup, warning = FALSE, message = FALSE}
 library(omada)
+sessionInfo()
 ```
 
 ### Investigating feasibility of a dataset based on its dimensions (sample and feature sizes)
