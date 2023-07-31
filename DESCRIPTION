@@ -2,7 +2,7 @@ Package: omada
 Type: Package
 Title: Machine learning tools for automated transcriptome 
     clustering analysis
-Version: 0.99.21
+Version: 1.3.1
 Authors@R: person("Sokratis", "Kariotis", role = c("aut", "cre"),
                         email = "sokratiskariotis@gmail.com",
                         comment = c(ORCID = "0000-0001-9993-6017"))
