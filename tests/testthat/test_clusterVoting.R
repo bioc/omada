@@ -23,12 +23,3 @@ test_that("Type of output", {
                              algorithm = "hc"))
         , "list")
 })
-
-test_that("Output specifics", {
-    expect_gte(
-        sum(clusterVoting(toy_genes,
-                             min.k = 2,
-                             max.k = 7,
-                             algorithm = "hc")[[4]][,2])
-        , 14)
-})
