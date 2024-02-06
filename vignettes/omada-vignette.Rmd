@@ -165,6 +165,6 @@ signature.results <- geneSignatures(toy_genes, toy_gene_memberships)
 signature.dataframe <- get_coefficient_dataset(signature.results)
 
 # Plot results
-plot_top30percent_coefficients(signature.results)
+plot_top_coefficients(signature.results)
 ```
 

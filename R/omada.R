@@ -86,7 +86,7 @@ omada <- function(data, method.upper.k = 5) {
     # data$id <- rownames(data)
     gene.signature.results <- geneSignatures(data, memberships)
     gs.matrix <- get_coefficient_dataset(gene.signature.results)
-    gs.plot <- plot_top30percent_coefficients(gene.signature.results)
+    gs.plot <- plot_top_coefficients(gene.signature.results)
 
     clusterAnalysis <- function(partition.agreement.scores=pa.df,
                                 partition.agreement.plot=pa.plot,
