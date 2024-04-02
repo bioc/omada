@@ -68,13 +68,13 @@ cv.memberships <- get_cluster_voting_memberships(omada.analysis)
 cv.metrics.votes <- get_cluster_voting_metric_votes(omada.analysis)
 cv.k.votes <- get_cluster_voting_k_votes(omada.analysis)
 sample.memberships <- get_sample_memberships(omada.analysis)
-sf.coefs <- get_signature_feature_coefs(omada.analysis)
+#sf.coefs <- get_signature_feature_coefs(omada.analysis)
 
 # Plot results
 plot_partition_agreement(omada.analysis)
 plot_feature_selection(omada.analysis)
 plot_cluster_voting(omada.analysis)
-plot_signature_feature(omada.analysis)
+#plot_signature_feature(omada.analysis)
 ```
 
 ### Selecting the most appropriate clustering approach based on a dataset
@@ -159,12 +159,12 @@ The first meta analysis of the discovered clusters includes the generation of fe
 ```{r gene-signatures, warning = FALSE, message = FALSE, cache = TRUE, fig.width = 7, fig.asp = .42, fig.align='center'}
 
 # Generating signatures based on the  initial dataset and cluster memberships
-signature.results <- geneSignatures(toy_genes, toy_gene_memberships)
+#signature.results <- geneSignatures(toy_genes, toy_gene_memberships)
 
 #Extract results
-signature.dataframe <- get_coefficient_dataset(signature.results)
+#signature.dataframe <- get_coefficient_dataset(signature.results)
 
 # Plot results
-plot_top_coefficients(signature.results)
+#plot_top_coefficients(signature.results)
 ```
 

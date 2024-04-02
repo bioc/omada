@@ -84,9 +84,9 @@ omada <- function(data, method.upper.k = 5) {
 
     # Generate gene signatures
     # data$id <- rownames(data)
-    gene.signature.results <- geneSignatures(data, memberships)
-    gs.matrix <- get_coefficient_dataset(gene.signature.results)
-    gs.plot <- plot_top_coefficients(gene.signature.results)
+    #gene.signature.results <- geneSignatures(data, memberships)
+    #gs.matrix <- get_coefficient_dataset(gene.signature.results)
+    #gs.plot <- plot_top_coefficients(gene.signature.results)
 
     clusterAnalysis <- function(partition.agreement.scores=pa.df,
                                 partition.agreement.plot=pa.plot,
@@ -101,9 +101,10 @@ omada <- function(data, method.upper.k = 5) {
                                 cluster.voting.metric.votes=cv.votes,
                                 cluster.voting.k.votes=cv.ensemble,
                                 cluster.voting.plot=cv.plot,
-                                sample.memberships=memberships,
-                                signature.feature.coefs=gs.matrix,
-                                signature.feature.plot=gs.plot){
+                                sample.memberships=memberships
+                                #signature.feature.coefs=gs.matrix,
+                                #signature.feature.plot=gs.plot
+                                ){
 
         ca <- list(partition.agreement.scores = partition.agreement.scores,
                    partition.agreement.plot = partition.agreement.plot,
@@ -118,9 +119,9 @@ omada <- function(data, method.upper.k = 5) {
                    cluster.voting.metric.votes = cluster.voting.metric.votes,
                    cluster.voting.k.votes = cluster.voting.k.votes,
                    cluster.voting.plot = cluster.voting.plot,
-                   sample.memberships = sample.memberships,
-                   signature.feature.coefs = signature.feature.coefs,
-                   signature.feature.plot = signature.feature.plot
+                   sample.memberships = sample.memberships
+                   #signature.feature.coefs = signature.feature.coefs,
+                   #signature.feature.plot = signature.feature.plot
                    )
 
         ## Set the name for the class
