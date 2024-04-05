@@ -10,8 +10,7 @@
 #' feature.selection.plot, feature.selection.optimal.features,
 #' feature.selection.optimal.number.of.features, cluster.voting.scores,
 #' cluster.voting.cluster.memberships,cluster.voting.metric.votes,
-#' cluster.voting.k.votes,cluster.voting.plot,sample.memberships,
-#' signature.feature.coefs and signature.feature.plot
+#' cluster.voting.k.votes,cluster.voting.plot,sample.memberships
 #'
 #' @export
 #'
@@ -34,7 +33,7 @@ omada <- function(data, method.upper.k = 5) {
     pa.df <- get_partition_agreement_scores(methods.results)
     pa.plot <- plot_partition_agreement(methods.results)
 
-    optimal.method <- names(which.max(colMeans(pa.df[seq_len(3)]))) # Selected method
+    optimal.method <- names(which.max(colMeans(pa.df[seq_len(3)]))) # Method
 
     # Running feature selection so that we consider 5 steps in total
     step <- dim(data)[2]/5
@@ -82,12 +81,6 @@ omada <- function(data, method.upper.k = 5) {
     optimal.stability.score <- get_optimal_stability_score(optimal.clustering)
     optimal.parameter.used <- get_optimal_parameter_used(optimal.clustering)
 
-    # Generate gene signatures
-    # data$id <- rownames(data)
-    gene.signature.results <- geneSignatures(data, memberships)
-    gs.matrix <- get_coefficient_dataset(gene.signature.results)
-    gs.plot <- plot_top_coefficients(gene.signature.results)
-
     clusterAnalysis <- function(partition.agreement.scores=pa.df,
                                 partition.agreement.plot=pa.plot,
                                 feature.selection.scores=fs.df,
@@ -101,9 +94,7 @@ omada <- function(data, method.upper.k = 5) {
                                 cluster.voting.metric.votes=cv.votes,
                                 cluster.voting.k.votes=cv.ensemble,
                                 cluster.voting.plot=cv.plot,
-                                sample.memberships=memberships,
-                                signature.feature.coefs=gs.matrix,
-                                signature.feature.plot=gs.plot){
+                                sample.memberships=memberships){
 
         ca <- list(partition.agreement.scores = partition.agreement.scores,
                    partition.agreement.plot = partition.agreement.plot,
@@ -118,10 +109,7 @@ omada <- function(data, method.upper.k = 5) {
                    cluster.voting.metric.votes = cluster.voting.metric.votes,
                    cluster.voting.k.votes = cluster.voting.k.votes,
                    cluster.voting.plot = cluster.voting.plot,
-                   sample.memberships = sample.memberships,
-                   signature.feature.coefs = signature.feature.coefs,
-                   signature.feature.plot = signature.feature.plot
-                   )
+                   sample.memberships = sample.memberships)
 
         ## Set the name for the class
         class(ca) <- "clusterAnalysis"
