@@ -152,3 +152,4 @@ memberships <- get_optimal_memberships(sample.memberships)
 optimal.stability <- get_optimal_stability_score(sample.memberships)
 optimal.parameter <- get_optimal_parameter_used(sample.memberships)
 ```
+

@@ -10,7 +10,6 @@
 #' feature.selection.plot, feature.selection.optimal.features,
 #' feature.selection.optimal.number.of.features, cluster.voting.scores,
 #' cluster.voting.cluster.memberships,cluster.voting.metric.votes,
-#' cluster.voting.k.votes,cluster.voting.plot,sample.memberships
 #'
 #' @export
 #'
@@ -32,7 +31,6 @@ omada <- function(data, method.upper.k = 5) {
 
     pa.df <- get_partition_agreement_scores(methods.results)
     pa.plot <- plot_partition_agreement(methods.results)
-
     optimal.method <- names(which.max(colMeans(pa.df[seq_len(3)]))) # Method
 
     # Running feature selection so that we consider 5 steps in total
@@ -95,6 +93,7 @@ omada <- function(data, method.upper.k = 5) {
                                 cluster.voting.k.votes=cv.ensemble,
                                 cluster.voting.plot=cv.plot,
                                 sample.memberships=memberships){
+
 
         ca <- list(partition.agreement.scores = partition.agreement.scores,
                    partition.agreement.plot = partition.agreement.plot,
