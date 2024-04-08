@@ -16,6 +16,4 @@ A list of LASSO (regression analysis) coefficients of each gene
 Get a list of LASSO (regression analysis) coefficients of each gene
 }
 \examples{
-oa.object <- omada(toy_genes, method.upper.k = 4)
-lasso.coefs <- get_signature_feature_coefs(oa.object)
 }

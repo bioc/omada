@@ -22,6 +22,5 @@ An object of class "geneSignature" containing a list of LASSO
 Generating the feature/gene signature per cluster
 }
 \examples{
-geneSignatures(toy_genes, toy_gene_memberships)
 
 }
