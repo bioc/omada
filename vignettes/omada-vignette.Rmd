@@ -68,13 +68,11 @@ cv.memberships <- get_cluster_voting_memberships(omada.analysis)
 cv.metrics.votes <- get_cluster_voting_metric_votes(omada.analysis)
 cv.k.votes <- get_cluster_voting_k_votes(omada.analysis)
 sample.memberships <- get_sample_memberships(omada.analysis)
-#sf.coefs <- get_signature_feature_coefs(omada.analysis)
 
 # Plot results
 plot_partition_agreement(omada.analysis)
 plot_feature_selection(omada.analysis)
 plot_cluster_voting(omada.analysis)
-#plot_signature_feature(omada.analysis)
 ```
 
 ### Selecting the most appropriate clustering approach based on a dataset
